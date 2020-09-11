@@ -1,25 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import './button.css';
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
+export const PnButton = ({ primary, backgroundColor, size, label, ...props }) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={backgroundColor && { backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+    <Button variant='contained' color='primary'>
+      Hello World
+    </Button>
   );
 };
 
-Button.propTypes = {
+PnButton.propTypes = {
   /**
    * Is this the principal call to action on the page?
    */
@@ -42,7 +38,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
 };
 
-Button.defaultProps = {
+PnButton.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',

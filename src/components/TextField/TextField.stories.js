@@ -1,36 +1,36 @@
 import React from 'react';
 
-import { TextField } from './';
+import { PnTextField } from './';
 
 export default {
   title: 'Components/TextField',
-  component: TextField,
+  component: PnTextField,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
 };
 
-const Template = (args) => <TextField {...args} />;
+const Template = (args) => <PnTextField {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
   primary: true,
-  label: 'TextField',
+  label: 'PnTextField',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'TextField',
+  label: 'PnTextField',
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'large',
-  label: 'TextField',
+  label: 'PnTextField',
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'TextField',
+  label: 'PnTextField',
 };
