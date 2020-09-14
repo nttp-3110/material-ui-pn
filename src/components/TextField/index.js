@@ -1,131 +1,173 @@
-import React from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import DoneIcon from '@material-ui/icons/Done';
+import ClearIcon from '@material-ui/icons/Clear';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import useEventListener from '../../utils/useEventListener';
 // import './index.css';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& .col-3': {
-      float: 'left',
-      width: '27.33%',
-      margin: '40px 3%',
-      position: 'relative'
-    },
-    '& input[type = "text"]': {
-      font: '15px/24px "Muli", sans- serif',
-      color: '#333', width: '100%',
-      boxSizing: 'border-box',
-      letterSpacing: '1px'
-    },
-    '& .effect-7': {
-      border: '1px solid #ccc',
-      padding: '7px 14px 9px',
-      transition: '0.4s',
-      '& ~ .focus-border:before, & ~ .focus-border:after': {
-        content: '',
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: 0,
-        height: '2px',
-        backgroundColor: '#4caf50',
-        transition: '0.4s'
-      },
-      '& ~ .focus-border:after': {
-        top: 'auto',
-        bottom: 0
-      },
-      '& ~ .focus-border i:before, & ~ .focus-border i:after': {
-        content: '',
-        position: 'absolute',
-        top: '50%',
-        left: 0,
-        width: '2px',
-        height: 0,
-        backgroundColor: '#4caf50',
-        transition: '0.6s'
-      },
-      '& ~ .focus-border i:after': {
-        left: 'auto',
-        right: 0
-      },
-      '&:focus ~ .focus-border:before, &:focus ~ .focus-border:after': {
-        left: 0,
-        width: '100%',
-        transition: '0.4s'
-      },
-      '&:focus ~ .focus-border i:before, &:focus ~ .focus-border i:after': {
-        top: 0,
-        height: '100%',
-        transition: '0.6s'
-      }
-    },
-    
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: '25ch',
-  },
-}));
+import useStyles from './styled';
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     width: '100%'
+//   },
+//   label: {
+//     padding: '6px 8px',
+//     fontSize: '15px',
+//     display: 'block',
+//     color: '#212529'
+//   },
+//   inputContainer: {
+//     position: 'relative'
+//   },
+//   input: {
+//     padding: '10px 8px',
+//     borderRadius: '8px',
+//     border: '1px solid #E9ECEF',
+//     width: 'calc(100% - 18px)',
+//     fontSize: '15px',
+//     color: '#212529',
+//     '&:focus': {
+//       outline: 'none',
+//       borderColor: '#1A7AE6',
+//     }
+//   },
+//   iconError: {
+//     position: 'absolute',
+//     right: '8px',
+//     bottom: '10px',
+//     fontSize: '18px'
+//   },
+//   hasError: {
+//     color: '#E03131'
+//   },
+//   inputError: {
+//     color: '#E03131',
+//     borderColor: '#E03131'
+//   },
+//   hepperText: {
+//     position: 'relative',
+//     marginTop: '8px',
+//     paddingLeft: '8px',
+//     fontSize: '15px'
+//   },
+//   hasOpen: {
+//     marginRight: '76px'
+//   },
+//   actions: {
+//     position: 'absolute',
+//     top: 0,
+//     right: 0
+//   },
+//   actionBtn: {
+//     fontSize: '20px',
+//     borderRadius: '8px',
+//     padding: '6px',
+//     cursor: 'pointer'
+//   },
+//   clearIcon: {
+//     backgroundColor: '#E9ECEF',
+//     color: '#495057',
+//     marginRight: '4px'
+//   },
+//   doneIcon: {
+//     backgroundColor: '#1A7AE6',
+//     color: '#FFFFFF'
+//   }
+// }));
 /**
  * Primary UI component for user interaction
  */
-export const PnTextField = ({ primary, backgroundColor, size, label, ...props }) => {
+export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave, onAbort, error, errorMessage, placeholder, ...props }) => {
   const classes = useStyles();
+  const inputContainerEl = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
+
+  const handleClick = useCallback(event => {
+    if (!!!singleSave) { 
+      return;
+    }
+    const containerElement = inputContainerEl.current;
+    let targetElement = event.target; // clicked element
+    do {
+      if (targetElement === containerElement) {
+        setOpen(true);
+        return;
+      }
+      // Go up the DOM.
+      targetElement = targetElement.parentNode;
+    } while (targetElement);
+    setOpen(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleChange = useCallback((e) => {
+    setValue(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleCancel = useCallback((e) => {
+    setValue(defaultValue);
+    setOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSave = useCallback((e) => {
+    setOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  useEventListener('click', handleClick);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
   return (
-    <div className={classes.root}>
-      <TextField
-        id='outlined-full-width'
-        label='Label'
-        style={{ margin: 8 }}
-        placeholder='Placeholder'
-        helperText='Full width!'
-        fullWidth
-        margin='normal'
-        InputLabelProps={{
-          shrink: true,
-        }}
-        variant='outlined'
-      />
-      <div class='col-3'>
-        <input class='effect-7' type='text' placeholder='Placeholder Text' />
-          <span class='focus-border'>
-            <i></i>
-          </span>
+    <div className={`${classes.root}`} ref={inputContainerEl}>
+      <label className={classes.label}>{label}</label>
+      <div className={classes.inputContainer}>
+        <input
+          className={clsx(classes.input, { [classes.inputError]: error })}
+          defaultValue={defaultValue}
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+        />
+        {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
+      </div>
+     
+      <div className={classes.hepperText}>
+        {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
+        {open && <div className={`${classes.actions} flyout-buttons`}>
+          <ClearIcon className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel}/>
+          <DoneIcon className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={handleSave}/>
+        </div>
+        }
       </div>
     </div>
   );
 };
 
 PnTextField.propTypes = {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
-  backgroundColor: PropTypes.string,
-  /**
-   * How large should the TextField be?
-   */
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  /**
-   * Button contents
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
-  onClick: PropTypes.func,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  defaultValue: PropTypes.string,
+  errorMessage: PropTypes.string,
+  error: PropTypes.bool,
+  singleSave: PropTypes.bool,
+  placeholder: PropTypes.string
 };
 
 PnTextField.defaultProps = {
-  backgroundColor: null,
-  primary: false,
-  size: 'medium',
-  onClick: undefined,
+  onChange: undefined,
+  defaultValue: '',
+  errorMessage: 'Error',
+  error: false,
+  singleSave: false,
+  placeholder: 'placeholder'
 };
