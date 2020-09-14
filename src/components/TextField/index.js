@@ -1,85 +1,18 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import useEventListener from '../../utils/useEventListener';
-// import './index.css';
+
 import useStyles from './styled';
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%'
-//   },
-//   label: {
-//     padding: '6px 8px',
-//     fontSize: '15px',
-//     display: 'block',
-//     color: '#212529'
-//   },
-//   inputContainer: {
-//     position: 'relative'
-//   },
-//   input: {
-//     padding: '10px 8px',
-//     borderRadius: '8px',
-//     border: '1px solid #E9ECEF',
-//     width: 'calc(100% - 18px)',
-//     fontSize: '15px',
-//     color: '#212529',
-//     '&:focus': {
-//       outline: 'none',
-//       borderColor: '#1A7AE6',
-//     }
-//   },
-//   iconError: {
-//     position: 'absolute',
-//     right: '8px',
-//     bottom: '10px',
-//     fontSize: '18px'
-//   },
-//   hasError: {
-//     color: '#E03131'
-//   },
-//   inputError: {
-//     color: '#E03131',
-//     borderColor: '#E03131'
-//   },
-//   hepperText: {
-//     position: 'relative',
-//     marginTop: '8px',
-//     paddingLeft: '8px',
-//     fontSize: '15px'
-//   },
-//   hasOpen: {
-//     marginRight: '76px'
-//   },
-//   actions: {
-//     position: 'absolute',
-//     top: 0,
-//     right: 0
-//   },
-//   actionBtn: {
-//     fontSize: '20px',
-//     borderRadius: '8px',
-//     padding: '6px',
-//     cursor: 'pointer'
-//   },
-//   clearIcon: {
-//     backgroundColor: '#E9ECEF',
-//     color: '#495057',
-//     marginRight: '4px'
-//   },
-//   doneIcon: {
-//     backgroundColor: '#1A7AE6',
-//     color: '#FFFFFF'
-//   }
-// }));
+
 /**
- * Primary UI component for user interaction
+ * TextField UI component for user interaction
  */
-export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave, onAbort, error, errorMessage, placeholder, ...props }) => {
+export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave, onAbort, error, errorMessage, placeholder, className, ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
   const [open, setOpen] = useState(false);
@@ -114,11 +47,17 @@ export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave,
   const handleCancel = useCallback((e) => {
     setValue(defaultValue);
     setOpen(false);
+    if (onAbort) {
+      onAbort();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSave = useCallback((e) => {
     setOpen(false);
+    if (onSave) {
+      onSave(value);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
@@ -128,7 +67,7 @@ export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave,
     setValue(defaultValue);
   }, [defaultValue]);
   return (
-    <div className={`${classes.root}`} ref={inputContainerEl}>
+    <div className={`${classes.root} ${className}`} ref={inputContainerEl}>
       <label className={classes.label}>{label}</label>
       <div className={classes.inputContainer}>
         <input
@@ -137,6 +76,7 @@ export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave,
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
+          {...props}
         />
         {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
       </div>
@@ -155,19 +95,30 @@ export const PnTextField = ({ label, defaultValue, onChange, singleSave, onSave,
 
 PnTextField.propTypes = {
   label: PropTypes.string,
-  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  singleSave: PropTypes.bool,
   defaultValue: PropTypes.string,
+
+  onChange: PropTypes.func,
+  onSave: PropTypes.func,
+  onAbort: PropTypes.func,
+  
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
-  singleSave: PropTypes.bool,
-  placeholder: PropTypes.string
+  className: PropTypes.string
 };
 
 PnTextField.defaultProps = {
-  onChange: undefined,
-  defaultValue: '',
-  errorMessage: 'Error',
-  error: false,
+  label: '',
+  placeholder: 'placeholder',
   singleSave: false,
-  placeholder: 'placeholder'
+  defaultValue: '',
+
+  onChange: undefined,
+  onSave: undefined,
+  onAbort: undefined,
+
+  errorMessage: 'Error Message',
+  error: false,
+  className: ''
 };

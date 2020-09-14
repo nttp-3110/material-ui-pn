@@ -3,13 +3,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%'
+        width: '100%',
+        '.text-ellipsis': {
+            whiteSpace: 'nowrap',
+            overflow: ' hidden !important',
+            textOverflow: 'ellipsis',
+        }
     },
     label: {
         padding: '6px 8px',
         fontSize: '15px',
         display: 'block',
-        color: '#212529'
+        color: '#212529',
+        whiteSpace: 'nowrap',
+        overflow: ' hidden !important',
+        textOverflow: 'ellipsis',
     },
     inputContainer: {
         position: 'relative'
