@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { PnTextField } from '../../components/TextField';
+import { PnTextField } from '../../components/TextFieldMUI';
 import './page.css';
 
 export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
@@ -15,7 +15,7 @@ export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
             <PnTextField label='label 3' />
           </Grid>
           <Grid item xs={4}>
-            <PnTextField label='label 3' />
+            <PnTextField label='label 3' required/>
           </Grid>
           <Grid item xs={4}>
             <PnTextField label='label 3' />

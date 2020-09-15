@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { PnTextField } from './';
+import { PnTextField } from '.';
 
 export default {
-  title: 'Components/TextField',
+  title: 'Components/TextFieldMUI',
   component: PnTextField,
   argTypes: {
     
@@ -23,6 +23,6 @@ InputSingleSave.args = {
   label: 'Input Single Save',
   defaultValue: 'Default',
   singleSave: true,
-  maxLength: 15,
-  minLength: 5
+  inputProps: { maxLength: 10, minLength: 8 },
+  required: true
 };

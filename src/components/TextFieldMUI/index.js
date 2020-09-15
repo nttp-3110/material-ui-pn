@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
+import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
@@ -13,14 +14,16 @@ import useStyles from './styled';
  * TextField UI component for user interaction
  */
 export const PnTextField = ({
-  label, defaultValue, placeholder, className,
+  required, label, defaultValue, placeholder, className,
   onChange, singleSave, onSave, onAbort,
-  error, errorMessage,
+  // error, errorMessage,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = useCallback(event => {
     if (!!!singleSave) { 
@@ -45,11 +48,21 @@ export const PnTextField = ({
     if (!open && singleSave) {
       setOpen(true);
     }
+    if (required) {
+      if (e.target.value === '') {
+        setError(true);
+        setErrorMessage('This information is required.');
+      } else {
+        setError(props.error);
+        setErrorMessage(props.errorMessage);
+      }
+      
+    }
     if (onChange) {
       onChange(e);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  }, [open, props.error, props.errorMessage]);
 
   const handleCancel = useCallback((e) => {
     setValue(defaultValue);
@@ -76,22 +89,27 @@ export const PnTextField = ({
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
+
+  useEffect(() => {
+    setError(props.error);
+    setErrorMessage(props.errorMessage);
+  }, [props.error, props.errorMessage]);
+
   return (
     <div className={`${classes.root} ${className}`} ref={inputContainerEl}>
-      <label className={classes.label}>{label}</label>
+      <label className={classes.label}>{label} {required? <span className={classes.asterisk}>*</span>: ''}</label>
       <div className={classes.inputContainer}>
-        <input
-          type='text'
+        <TextField
+          {...props}
+          variant='standard'
           className={clsx(classes.input, { [classes.inputError]: error })}
           defaultValue={defaultValue}
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          {...props}
         />
         {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
       </div>
-     
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
@@ -105,6 +123,7 @@ export const PnTextField = ({
 };
 
 PnTextField.propTypes = {
+  required: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
   singleSave: PropTypes.bool,
@@ -120,6 +139,7 @@ PnTextField.propTypes = {
 };
 
 PnTextField.defaultProps = {
+  required: false,
   label: '',
   placeholder: 'placeholder',
   singleSave: false,
@@ -129,7 +149,7 @@ PnTextField.defaultProps = {
   onSave: undefined,
   onAbort: undefined,
 
-  errorMessage: 'Error Message',
+  errorMessage: '',
   error: false,
   className: ''
 };
