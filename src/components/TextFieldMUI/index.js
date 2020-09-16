@@ -16,7 +16,7 @@ import useStyles from './styled';
  */
 export const PnTextField = ({
   required, label, defaultValue, placeholder, className,
-  onChange, singleSave, onSave, onAbort,
+  onChange, autoSave, onSave, onAbort,
   inputProps,
   // error, errorMessage,
   ...props }) => {
@@ -28,7 +28,7 @@ export const PnTextField = ({
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = useCallback(event => {
-    if (!!!singleSave) { 
+    if (!!!autoSave) { 
       return;
     }
     const containerElement = inputContainerEl.current;
@@ -47,7 +47,7 @@ export const PnTextField = ({
 
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
-    if (!open && singleSave) {
+    if (!open && autoSave) {
       setOpen(true);
     }
     if (required) {
@@ -109,9 +109,9 @@ export const PnTextField = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          InputProps={{
+          inputProps={{
             ...inputProps,
-            endAdornment: <InputAdornment position="end">
+            endAdornment: <InputAdornment position='end'>
               {inputProps?.endAdornment}
               {error && <ErrorOutlineIcon className={`${classes.hasError}`}/>}
             </InputAdornment>,
@@ -134,7 +134,7 @@ PnTextField.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  singleSave: PropTypes.bool,
+  autoSave: PropTypes.bool,
   defaultValue: PropTypes.string,
 
   onChange: PropTypes.func,
@@ -151,7 +151,7 @@ PnTextField.defaultProps = {
   required: false,
   label: '',
   placeholder: 'placeholder',
-  singleSave: false,
+  autoSave: false,
   defaultValue: '',
 
   onChange: undefined,

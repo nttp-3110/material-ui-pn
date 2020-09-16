@@ -7,16 +7,19 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import useEventListener from '../../utils/useEventListener';
+import debounce from 'lodash/debounce';
+import toNumber from 'lodash/toNumber';
 
 import useStyles from './styled';
 
 /**
  * TextField UI component for user interaction
  */
+
 export const PnNumberInput = ({
   required, label, defaultValue, placeholder, className,
-  min, max,
-  onChange, singleSave, onSave, onAbort,
+  min, max, decimal,
+  onChange, autoSave, onSave, onAbort,
   // error, errorMessage,
   ...props }) => {
   const classes = useStyles();
@@ -25,9 +28,9 @@ export const PnNumberInput = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  
   const handleClick = useCallback(event => {
-    if (!!!singleSave) {
+    if (!!!autoSave) {
       return;
     }
     const containerElement = inputContainerEl.current;
@@ -45,18 +48,33 @@ export const PnNumberInput = ({
   }, [value]);
 
   const handleKeyPress = useCallback(evt => {
+    console.log(value, inputContainerEl.current.getSelection, evt.which, this);
     switch (evt.which) { 
       case 101:
+      case 43:
         evt.preventDefault();
+        return false;
+      case 45:
+        if (decimal && (value.split('-')[0] || value.split('-')[value.split('-').length -1])) {
+          evt.preventDefault();
+        }
         break;
       default:
         break;
     }
+    return true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const handleChange = useCallback((e) => {
-    if (!open && singleSave) {
+    console.log(min, max, e);
+    const val = e.target.value;
+    if (decimal && val.split('.')[1]) {
+      if (val.split('.')[1].length > decimal) {
+        return;
+      }
+    }
+    if (!open && autoSave) {
       setOpen(true);
     }
     if (Number(e.target.value) < Number(min)) {
@@ -64,7 +82,7 @@ export const PnNumberInput = ({
     } else if (Number(e.target.value) > Number(max)) {
       setValue(max);
     } else {
-       setValue(e.target.value);
+      setValue(e.target.value);
     }
   
     if (required) {
@@ -103,12 +121,25 @@ export const PnNumberInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, defaultValue]);
 
+  const handleKeyUp = (e) => {
+    console.log('handleKeyUp', e.target?.onSelectionStart(e));
+  };
+  const handleKeyDown = (e) => {
+    console.log('handleKeyDown', e.target?.value);
+  };
+
   useEventListener('click', handleClick);
   useEventListener('keypress', handleKeyPress);
+  useEventListener('keypress', handleKeyDown);
+  useEventListener('keyup', handleKeyUp);
 
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
+
+  useEffect(() => {
+    console.log(max);
+  }, [max]);
 
   useEffect(() => {
     setError(props.error);
@@ -128,7 +159,6 @@ export const PnNumberInput = ({
           onChange={handleChange}
           placeholder={placeholder}
           type='number'
-          step={0.5}
         />
         {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
       </div>
@@ -148,7 +178,7 @@ PnNumberInput.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  singleSave: PropTypes.bool,
+  autoSave: PropTypes.bool,
   defaultValue: PropTypes.string,
 
   onChange: PropTypes.func,
@@ -157,14 +187,15 @@ PnNumberInput.propTypes = {
 
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  decimal: PropTypes.number
 };
 
 PnNumberInput.defaultProps = {
   required: false,
   label: '',
   placeholder: 'placeholder',
-  singleSave: false,
+  autoSave: false,
   defaultValue: '',
 
   onChange: undefined,
@@ -173,5 +204,6 @@ PnNumberInput.defaultProps = {
 
   errorMessage: '',
   error: false,
-  className: ''
+  className: '',
+  decimal: 0
 };

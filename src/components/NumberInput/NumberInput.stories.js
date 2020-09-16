@@ -15,14 +15,9 @@ const Template = (args) => <PnNumberInput {...args} />;
 export const Input = Template.bind({});
 Input.args = {
   label: 'Input',
-  defaultValue: ''
-};
-
-export const InputSingleSave = Template.bind({});
-InputSingleSave.args = {
-  label: 'Input Single Save',
   defaultValue: '',
-  singleSave: true,
+  autoSave: true,
   max: 100,
-  min: -5
+  min: -5,
+  decimal: 2
 };
