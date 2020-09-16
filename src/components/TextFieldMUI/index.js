@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import useEventListener from '../../utils/useEventListener';
 
@@ -16,6 +17,7 @@ import useStyles from './styled';
 export const PnTextField = ({
   required, label, defaultValue, placeholder, className,
   onChange, singleSave, onSave, onAbort,
+  inputProps,
   // error, errorMessage,
   ...props }) => {
   const classes = useStyles();
@@ -107,8 +109,14 @@ export const PnTextField = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
+          InputProps={{
+            ...inputProps,
+            endAdornment: <InputAdornment position="end">
+              {inputProps?.endAdornment}
+              {error && <ErrorOutlineIcon className={`${classes.hasError}`}/>}
+            </InputAdornment>,
+          }}
         />
-        {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
       </div>
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
@@ -135,7 +143,8 @@ PnTextField.propTypes = {
   
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  inputProps: PropTypes.any
 };
 
 PnTextField.defaultProps = {
@@ -151,5 +160,6 @@ PnTextField.defaultProps = {
 
   errorMessage: '',
   error: false,
-  className: ''
+  className: '',
+  inputProps: {}
 };

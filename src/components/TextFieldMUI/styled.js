@@ -23,20 +23,29 @@ const useStyles = makeStyles((theme) => ({
         textOverflow: 'ellipsis',
     },
     inputContainer: {
-        position: 'relative'
+        width: '100%',
+        display: 'flex'
     },
     input: {
+        padding: '10px 8px',
+        borderRadius: '8px',
+        border: '1px solid #E9ECEF',
         width: '100%',
+        '&:focus-within': {
+            outline: 'none',
+            borderColor: '#1A7AE6',
+        },
         '& .MuiInputBase-input': {
-            padding: '10px 8px',
-            borderRadius: '8px',
-            border: '1px solid #E9ECEF',
+            padding: 0,
             fontSize: '15px',
             color: '#212529',
             '&:focus': {
                 outline: 'none',
                 borderColor: '#1A7AE6',
             }
+        },
+        '& .MuiInputAdornment-root': {
+            margin: 0,
         },
         '& .MuiInput-underline:before, & .MuiInput-underline:after': {
             transition: 'none',
@@ -46,12 +55,6 @@ const useStyles = makeStyles((theme) => ({
             border: 0
         }
     },
-    iconError: {
-        position: 'absolute',
-        right: '8px',
-        bottom: '10px',
-        fontSize: '18px'
-    },
     hasError: {
         color: '#E03131'
     },
@@ -59,9 +62,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#E03131'
     },
     inputError: {
+        borderColor: '#E03131',
         '& .MuiInputBase-input': {
-            color: '#E03131',
-            borderColor: '#E03131',
+            color: '#E03131'
         }
     },
     hepperText: {
