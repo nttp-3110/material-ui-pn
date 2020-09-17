@@ -5,17 +5,59 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import useEventListener from '../../utils/useEventListener';
-import debounce from 'lodash/debounce';
-import toNumber from 'lodash/toNumber';
+// import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+// import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDownSharp';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUpSharp';
 
+// import ArrowDropDownTwoToneIcon from '@material-ui/icons/ArrowDropDownTwoTone';
+// import debounce from 'lodash/debounce';
+// import isNumber from 'lodash/isNumber';
+// import toNumber from 'lodash/toNumber';
 import useStyles from './styled';
 
 /**
  * TextField UI component for user interaction
  */
 
+function checkNegativeNumber(value) {
+  const negationRegex = new RegExp('(-)');
+  return negationRegex.test(value);
+}
+
+function formatNegation(value= '') {
+  const allowNegative = true;
+  // const { allowNegative } = this.props;
+  const negationRegex = new RegExp('(-)');
+  const doubleNegationRegex = new RegExp('(-)(.)*(-)');
+
+  // Check number has '-' value
+  const hasNegation = negationRegex.test(value);
+
+  // Check number has 2 or more '-' values
+  const removeNegation = doubleNegationRegex.test(value);
+
+  //remove negation
+  value = value.replace(/-/g, '');
+
+  if (hasNegation && !removeNegation && allowNegative) {
+    value = '-' + value;
+  }
+
+  return value;
+}
+
+function toFixedTrunc(x, n) {
+  const v = (typeof x === 'string' ? x : x.toString()).split('.');
+  if (n <= 0) return v[0];
+  let f = v[1] || '';
+  if (f.length > n) return `${v[0]}.${f.substr(0, n)}`;
+  while (f.length < n) f += '0';
+  return `${v[0]}.${f}`;
+}
 export const PnNumberInput = ({
   required, label, defaultValue, placeholder, className,
   min, max, decimal,
@@ -28,6 +70,7 @@ export const PnNumberInput = ({
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [actionState, setActionState] = useState('');
   
   const handleClick = useCallback(event => {
     if (!!!autoSave) {
@@ -45,17 +88,26 @@ export const PnNumberInput = ({
     } while (targetElement);
     handleSave();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [value, autoSave]);
 
   const handleKeyPress = useCallback(evt => {
-    console.log(value, inputContainerEl.current.getSelection, evt.which, this);
+    console.log(evt.which);
+    if ((evt.which < 48 && ![45, 46].includes(evt.which )) || evt.which > 57) {
+      evt.preventDefault();
+      return;
+    }
     switch (evt.which) { 
       case 101:
       case 43:
         evt.preventDefault();
         return false;
       case 45:
-        if (decimal && (value.split('-')[0] || value.split('-')[value.split('-').length -1])) {
+        if (checkNegativeNumber(value)) {
+          evt.preventDefault();
+        }
+        return false;
+      case 46:
+        if (decimal && (value.split('.').length === 2)) {
           evt.preventDefault();
         }
         break;
@@ -64,29 +116,33 @@ export const PnNumberInput = ({
     }
     return true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [decimal, value]);
 
   const handleChange = useCallback((e) => {
-    console.log(min, max, e);
-    const val = e.target.value;
+    let val = formatNegation(e.target.value);
+    if (isNaN(val) && val !== '-') {
+      return;
+    }
     if (decimal && val.split('.')[1]) {
       if (val.split('.')[1].length > decimal) {
+        setValue(toFixedTrunc(val, decimal));
         return;
       }
     }
     if (!open && autoSave) {
       setOpen(true);
     }
-    if (Number(e.target.value) < Number(min)) {
+    if (Number(val) < Number(min)) {
       setValue(min);
-    } else if (Number(e.target.value) > Number(max)) {
+    } else if (Number(val) > Number(max)) {
       setValue(max);
     } else {
-      setValue(e.target.value);
+      console.log(val);
+      setValue(val);
     }
   
     if (required) {
-      if (e.target.value === '') {
+      if (val === '') {
         setError(true);
         setErrorMessage('This information is required.');
       } else {
@@ -99,7 +155,7 @@ export const PnNumberInput = ({
       onChange(e);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, props.error, props.errorMessage]);
+  }, [open, props.error, props.errorMessage, decimal, min, max, required, autoSave]);
 
   const handleCancel = useCallback((e) => {
     setValue(defaultValue);
@@ -121,25 +177,32 @@ export const PnNumberInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, defaultValue]);
 
-  const handleKeyUp = (e) => {
-    console.log('handleKeyUp', e.target?.onSelectionStart(e));
-  };
-  const handleKeyDown = (e) => {
-    console.log('handleKeyDown', e.target?.value);
-  };
+  const handleDropDownValue = useCallback((e) => {
+    console.log(value, 'handleDropDownValue');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  const handleDropUpValue = useCallback((e) => {
+    console.log(value, 'handleDropUpValue');
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  // const handleKeyUp = (e) => {
+  //   console.log('handleKeyUp', e.target?.onSelectionStart(e));
+  // };
+  // const handleKeyDown = (e) => {
+  //   console.log('handleKeyDown', e.target?.value);
+  // };
 
   useEventListener('click', handleClick);
   useEventListener('keypress', handleKeyPress);
-  useEventListener('keypress', handleKeyDown);
-  useEventListener('keyup', handleKeyUp);
+  // useEventListener('keydown', handleKeyDown);
+  // useEventListener('keyup', handleKeyUp);
 
   useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
-
-  useEffect(() => {
-    console.log(max);
-  }, [max]);
 
   useEffect(() => {
     setError(props.error);
@@ -158,10 +221,35 @@ export const PnNumberInput = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          type='number'
+          type='text'
+          // InputProps={{
+          //   endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
+          //     <div className={classes.controlActionContent}>
+          //       {/* <div className={classes.dropDownIcon}><ArrowDropDownIcon onClick={handleDropDownValue}/></div>
+          //       <div className={classes.dropUpIcon} ><ArrowDropUpIcon onClick={handleDropUpValue} /></div> */}
+          //       <span className={`${classes.dropUpIcon} icon-icn_sort_arrow_up`} onClick={handleDropUpValue}></span>
+          //       <span className={`${classes.dropDownIcon} icon-icn_sort_arrow_down`} onClick={handleDropDownValue}></span>
+          //     </div>
+
+          //   </InputAdornment>
+          // }}
         />
-        {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />}
+        {/* {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />} */}
+        {/* <InputAdornment position='end' className={classes.controlActionWrapper}>
+          <div className={classes.controlActionContent}>
+            <div className={classes.dropDownIcon}><ArrowDropDownIcon /></div>
+            <div className={classes.dropUpIcon}><ArrowDropUpIcon /></div>
+          </div>
+
+        </InputAdornment> */}
       </div>
+      {/* <InputAdornment position='end' className={classes.controlActionWrapper}>
+        <div className={classes.controlActionContent}>
+          <div className={classes.dropUpIcon}><ArrowDropUpIcon /></div>
+          <div className={classes.dropDownIcon}><ArrowDropDownIcon /></div>
+        </div>
+
+      </InputAdornment> */}
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>

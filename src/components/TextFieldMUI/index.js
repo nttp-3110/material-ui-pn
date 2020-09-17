@@ -109,7 +109,7 @@ export const PnTextField = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          inputProps={{
+          InputProps={{
             ...inputProps,
             endAdornment: <InputAdornment position='end'>
               {inputProps?.endAdornment}

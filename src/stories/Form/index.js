@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { PnTextField } from '../../components/TextFieldMUI';
+import { PnNumberInput as PnTextField } from '../../components/NumberInput';
 import './page.css';
 
 export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
   <article style={{ backgroundColor: 'lightblue' }}>
     <section style={{ backgroundColor: 'white' }}>
-      <h2>Text Field / Input</h2>
+      <h2>Text Field / Input </h2>
       <p>
         <Grid container spacing={3}>
           <Grid item xs={4}>
