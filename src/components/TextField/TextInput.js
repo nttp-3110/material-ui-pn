@@ -7,7 +7,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import useEventListener from '../../utils/useEventListener';
+import useEventListener from './utils/useEventListener';
 
 import useStyles from './styled';
 
@@ -126,8 +126,8 @@ export const PnTextInput = ({
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
-          <ClearIcon className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel} />
-          <DoneIcon className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={() => handleSave(value)} />
+          <div className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel}><ClearIcon className={classes.icon} /></div>
+          <div className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={() => handleSave(value)}><DoneIcon className={classes.icon}  /></div>
         </div>
         }
       </div>

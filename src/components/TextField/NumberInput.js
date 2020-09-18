@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import useEventListener from '../../utils/useEventListener';
+import useEventListener from './utils/useEventListener';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
@@ -233,8 +233,8 @@ export const PnNumberInput = ({
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
-          <ClearIcon className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel} />
-          <DoneIcon className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={handleSave} />
+          <div className={`${classes.actionBtn} ${classes.clearIcon}`} ><ClearIcon onClick={handleCancel} style={{ fontSize: 24 }}/></div>
+          <div className={`${classes.actionBtn} ${classes.doneIcon}`}><DoneIcon onClick={() => handleSave(value)} style={{ fontSize: 24 }}/></div>
         </div>
         }
       </div>

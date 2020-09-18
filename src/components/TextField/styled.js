@@ -31,9 +31,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '8px',
         border: '1px solid #E9ECEF',
         width: '100%',
+        transition: 'all 200ms ease-in-out',
         '&:focus-within': {
             outline: 'none',
             borderColor: '#1A7AE6',
+            boxShadow: 'rgba(235,241,249,1) 0 0 0 3px'
         },
         '& .MuiInputBase-input': {
             padding: 0,
@@ -83,13 +85,19 @@ const useStyles = makeStyles((theme) => ({
     actions: {
         position: 'absolute',
         top: 0,
-        right: 0
+        right: 0,
+        display: 'flex'
     },
     actionBtn: {
-        fontSize: '20px',
         borderRadius: '8px',
         padding: '6px',
         cursor: 'pointer'
+    },
+    icon: {
+        fontSize: '20px',
+        height: '20px',
+        width: '20px',
+        display: 'block'
     },
     clearIcon: {
         backgroundColor: '#E9ECEF',

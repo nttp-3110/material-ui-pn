@@ -30,6 +30,7 @@ export default function useEventListener(eventName, handler, unmountFunc, elemen
       // Remove event listener on cleanup
       return () => {
         if (unmountFunc) {
+          console.log('unmou');
           unmountFunc();
         };
         element.removeEventListener(eventName, eventListener);
