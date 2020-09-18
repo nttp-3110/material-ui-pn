@@ -6,10 +6,10 @@ import isNil from 'lodash/isNil';
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
-import InputAdornment from '@material-ui/core/InputAdornment';
+// import InputAdornment from '@material-ui/core/InputAdornment';
 import useEventListener from './utils/useEventListener';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+// import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+// import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import useStyles from './styled';
 
@@ -184,6 +184,9 @@ export const PnNumberInput = ({
   }, [updateValue, value]);
   
   const handleKeyDown = useCallback((e) => {
+    if (e.target !== inputRef?.current) {
+      return;
+    }
     if (e.keyCode === 38) {
       handleValue();
     } else if (e.keyCode === 40) {
@@ -218,16 +221,16 @@ export const PnNumberInput = ({
           inputProps={{
             ref: inputRef
           }}
-          InputProps={{
-            endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
-              <div className={classes.controlActionContent}>
-                <div className={classes.dropDownIcon}><ArrowDropDownIcon onClick={() => handleValue(false)}/></div>
-                <div className={classes.dropUpIcon} ><ArrowDropUpIcon onClick={() => handleValue(true)} /></div>
-              </div>
+          // InputProps={{
+          //   endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
+          //     <div className={classes.controlActionContent}>
+          //       <div className={classes.dropDownIcon}><ArrowDropDownIcon onClick={() => handleValue(false)}/></div>
+          //       <div className={classes.dropUpIcon} ><ArrowDropUpIcon onClick={() => handleValue(true)} /></div>
+          //     </div>
 
-            </InputAdornment>
-          }
-          }
+          //   </InputAdornment>
+          // }
+          // }
         />
       </div>
       <div className={classes.hepperText}>
