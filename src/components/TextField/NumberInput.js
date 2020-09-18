@@ -1,22 +1,16 @@
 import React, { useEffect, useCallback, useState, useRef } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
 
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import useEventListener from '../../utils/useEventListener';
-// import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-// import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDownSharp';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUpSharp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-// import ArrowDropDownTwoToneIcon from '@material-ui/icons/ArrowDropDownTwoTone';
-// import debounce from 'lodash/debounce';
-// import isNumber from 'lodash/isNumber';
-// import toNumber from 'lodash/toNumber';
 import useStyles from './styled';
 
 /**
@@ -62,15 +56,14 @@ export const PnNumberInput = ({
   required, label, defaultValue, placeholder, className,
   min, max, decimal,
   onChange, autoSave, onSave, onAbort,
-  // error, errorMessage,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
+  const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [actionState, setActionState] = useState('');
   
   const handleClick = useCallback(event => {
     if (!!!autoSave) {
@@ -91,7 +84,6 @@ export const PnNumberInput = ({
   }, [value, autoSave]);
 
   const handleKeyPress = useCallback(evt => {
-    console.log(evt.which);
     if ((evt.which < 48 && ![45, 46].includes(evt.which )) || evt.which > 57) {
       evt.preventDefault();
       return;
@@ -118,29 +110,15 @@ export const PnNumberInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decimal, value]);
 
-  const handleChange = useCallback((e) => {
-    let val = formatNegation(e.target.value);
-    if (isNaN(val) && val !== '-') {
-      return;
-    }
-    if (decimal && val.split('.')[1]) {
-      if (val.split('.')[1].length > decimal) {
-        setValue(toFixedTrunc(val, decimal));
-        return;
-      }
-    }
-    if (!open && autoSave) {
-      setOpen(true);
-    }
-    if (Number(val) < Number(min)) {
+  const updateValue = useCallback((val) => {
+    if (!isNil(min) && Number(val) < Number(min)) {
       setValue(min);
-    } else if (Number(val) > Number(max)) {
+    } else if (!isNil(max) && Number(val) > Number(max)) {
       setValue(max);
     } else {
-      console.log(val);
       setValue(val);
     }
-  
+
     if (required) {
       if (val === '') {
         setError(true);
@@ -151,6 +129,24 @@ export const PnNumberInput = ({
       }
 
     }
+  }, [min, max, required, props.error, props.errorMessage]);
+
+  const handleChange = useCallback((e) => {
+    let val = formatNegation(e.target.value);
+    if (isNaN(val) && val !== '-') {
+      return;
+    }
+    if (!isNil(decimal) && val.split('.')[1]) {
+      if (val.split('.')[1].length > decimal) {
+        setValue(toFixedTrunc(val, decimal));
+        return;
+      }
+    }
+    if (!open && autoSave) {
+      setOpen(true);
+    }
+    updateValue(val);
+    
     if (onChange) {
       onChange(e);
     }
@@ -166,48 +162,45 @@ export const PnNumberInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSave = useCallback((e) => {
-    setOpen(false);
-    if (value === defaultValue) {
+  const handleSave = useCallback((val) => {
+    if (!autoSave) {
       return;
     }
+    const inputVal = val || value;
+    setOpen(false);
+    if (inputVal === defaultValue || isNaN(inputVal)) {
+      return;
+    }
+    alert(inputVal);
     if (onSave) {
-      onSave(value);
+      onSave(inputVal);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, defaultValue]);
+  }, [value, defaultValue, autoSave]);
 
-  const handleDropDownValue = useCallback((e) => {
-    console.log(value, 'handleDropDownValue');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  const handleValue = useCallback((isPlus = true) => {
+    const val = parseInt(value || 0);
+    updateValue(isPlus ? val + 1 : val - 1);
+  }, [updateValue, value]);
+  
+  const handleKeyDown = useCallback((e) => {
+    if (e.keyCode === 38) {
+      handleValue();
+    } else if (e.keyCode === 40) {
+      handleValue(false);
+    };
+  }, [handleValue]);
 
-  const handleDropUpValue = useCallback((e) => {
-    console.log(value, 'handleDropUpValue');
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
-
-  // const handleKeyUp = (e) => {
-  //   console.log('handleKeyUp', e.target?.onSelectionStart(e));
-  // };
-  // const handleKeyDown = (e) => {
-  //   console.log('handleKeyDown', e.target?.value);
-  // };
-
-  useEventListener('click', handleClick);
+  useEventListener('click', handleClick, () => handleSave(inputRef?.current?.value));
   useEventListener('keypress', handleKeyPress);
-  // useEventListener('keydown', handleKeyDown);
-  // useEventListener('keyup', handleKeyUp);
+  useEventListener('keydown', handleKeyDown);
 
   useEffect(() => {
     setValue(defaultValue);
-  }, [defaultValue]);
-
-  useEffect(() => {
     setError(props.error);
     setErrorMessage(props.errorMessage);
-  }, [props.error, props.errorMessage]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValue, props.error, props.errorMessage]);
 
   return (
     <div className={`${classes.root} ${className}`} ref={inputContainerEl}>
@@ -222,34 +215,21 @@ export const PnNumberInput = ({
           onChange={handleChange}
           placeholder={placeholder}
           type='text'
-          // InputProps={{
-          //   endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
-          //     <div className={classes.controlActionContent}>
-          //       {/* <div className={classes.dropDownIcon}><ArrowDropDownIcon onClick={handleDropDownValue}/></div>
-          //       <div className={classes.dropUpIcon} ><ArrowDropUpIcon onClick={handleDropUpValue} /></div> */}
-          //       <span className={`${classes.dropUpIcon} icon-icn_sort_arrow_up`} onClick={handleDropUpValue}></span>
-          //       <span className={`${classes.dropDownIcon} icon-icn_sort_arrow_down`} onClick={handleDropDownValue}></span>
-          //     </div>
+          inputProps={{
+            ref: inputRef
+          }}
+          InputProps={{
+            endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
+              <div className={classes.controlActionContent}>
+                <div className={classes.dropDownIcon}><ArrowDropDownIcon onClick={() => handleValue(false)}/></div>
+                <div className={classes.dropUpIcon} ><ArrowDropUpIcon onClick={() => handleValue(true)} /></div>
+              </div>
 
-          //   </InputAdornment>
-          // }}
+            </InputAdornment>
+          }
+          }
         />
-        {/* {error && <ErrorOutlineIcon className={`${classes.iconError} ${classes.hasError}`} />} */}
-        {/* <InputAdornment position='end' className={classes.controlActionWrapper}>
-          <div className={classes.controlActionContent}>
-            <div className={classes.dropDownIcon}><ArrowDropDownIcon /></div>
-            <div className={classes.dropUpIcon}><ArrowDropUpIcon /></div>
-          </div>
-
-        </InputAdornment> */}
       </div>
-      {/* <InputAdornment position='end' className={classes.controlActionWrapper}>
-        <div className={classes.controlActionContent}>
-          <div className={classes.dropUpIcon}><ArrowDropUpIcon /></div>
-          <div className={classes.dropDownIcon}><ArrowDropDownIcon /></div>
-        </div>
-
-      </InputAdornment> */}
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
@@ -276,13 +256,15 @@ PnNumberInput.propTypes = {
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
   className: PropTypes.string,
-  decimal: PropTypes.number
+  decimal: PropTypes.number,
+  min: PropTypes.number,
+  max: PropTypes.number
 };
 
 PnNumberInput.defaultProps = {
   required: false,
   label: '',
-  placeholder: 'placeholder',
+  placeholder: 'placeholder', 
   autoSave: false,
   defaultValue: '',
 
@@ -293,5 +275,7 @@ PnNumberInput.defaultProps = {
   errorMessage: '',
   error: false,
   className: '',
-  decimal: 0
+  decimal: null,
+  min: null,
+  max: null
 };

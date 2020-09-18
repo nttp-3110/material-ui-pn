@@ -14,21 +14,21 @@ import useStyles from './styled';
 /**
  * TextField UI component for user interaction
  */
-export const PnTextField = ({
+export const PnTextInput = ({
   required, label, defaultValue, placeholder, className,
   onChange, autoSave, onSave, onAbort,
   inputProps,
-  // error, errorMessage,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
+  const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = useCallback(event => {
-    if (!!!autoSave) { 
+    if (!!!autoSave) {
       return;
     }
     const containerElement = inputContainerEl.current;
@@ -41,9 +41,9 @@ export const PnTextField = ({
       // Go up the DOM.
       targetElement = targetElement.parentNode;
     } while (targetElement);
-    handleSave();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+    handleSave(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, defaultValue, autoSave]);
 
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
@@ -58,12 +58,12 @@ export const PnTextField = ({
         setError(props.error);
         setErrorMessage(props.errorMessage);
       }
-      
+
     }
     if (onChange) {
       onChange(e);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, props.error, props.errorMessage]);
 
   const handleCancel = useCallback((e) => {
@@ -75,31 +75,32 @@ export const PnTextField = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSave = useCallback((e) => {
-    setOpen(false);
-    if (value === defaultValue) {
+  const handleSave = useCallback((inputVal) => {
+    if (!autoSave) {
       return;
     }
+    setOpen(false);
+    if (inputVal === defaultValue) {
+      return;
+    }
+    alert(inputVal);
     if (onSave) {
-      onSave(value);
+      onSave(inputVal);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, defaultValue]);
+  }, [defaultValue, autoSave]);
 
-  useEventListener('click', handleClick);
+  useEventListener('click', handleClick, () => handleSave(inputRef?.current?.value));
 
   useEffect(() => {
     setValue(defaultValue);
-  }, [defaultValue]);
-
-  useEffect(() => {
     setError(props.error);
     setErrorMessage(props.errorMessage);
-  }, [props.error, props.errorMessage]);
+  }, [defaultValue, props.error, props.errorMessage]);
 
   return (
     <div className={`${classes.root} ${className}`} ref={inputContainerEl}>
-      <label className={classes.label}>{label} {required? <span className={classes.asterisk}>*</span>: ''}</label>
+      <label className={classes.label}>{label} {required ? <span className={classes.asterisk}>*</span> : ''}</label>
       <div className={classes.inputContainer}>
         <TextField
           {...props}
@@ -109,20 +110,24 @@ export const PnTextField = ({
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
+          inputProps={{
+            ref: inputRef
+          }}
           InputProps={{
             ...inputProps,
             endAdornment: <InputAdornment position='end'>
               {inputProps?.endAdornment}
-              {error && <ErrorOutlineIcon className={`${classes.hasError}`}/>}
+              {error && <ErrorOutlineIcon className={`${classes.hasError}`} />}
             </InputAdornment>,
+           
           }}
         />
       </div>
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
-          <ClearIcon className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel}/>
-          <DoneIcon className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={handleSave}/>
+          <ClearIcon className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel} />
+          <DoneIcon className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={() => handleSave(value)} />
         </div>
         }
       </div>
@@ -130,7 +135,7 @@ export const PnTextField = ({
   );
 };
 
-PnTextField.propTypes = {
+PnTextInput.propTypes = {
   required: PropTypes.bool,
   label: PropTypes.string,
   placeholder: PropTypes.string,
@@ -140,14 +145,14 @@ PnTextField.propTypes = {
   onChange: PropTypes.func,
   onSave: PropTypes.func,
   onAbort: PropTypes.func,
-  
+
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
   className: PropTypes.string,
   inputProps: PropTypes.any
 };
 
-PnTextField.defaultProps = {
+PnTextInput.defaultProps = {
   required: false,
   label: '',
   placeholder: 'placeholder',

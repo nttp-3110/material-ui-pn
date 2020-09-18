@@ -1,7 +1,8 @@
 
+// Reference: https://usehooks.com/useEventListener/
 import { useEffect, useRef } from 'react';
 
-export default function useEventListener(eventName, handler, element = window) {
+export default function useEventListener(eventName, handler, unmountFunc, element = window) {
   // Create a ref that stores handler
   const savedHandler = useRef();
 
@@ -28,9 +29,13 @@ export default function useEventListener(eventName, handler, element = window) {
 
       // Remove event listener on cleanup
       return () => {
+        if (unmountFunc) {
+          unmountFunc();
+        };
         element.removeEventListener(eventName, eventListener);
       };
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [eventName, element] // Re-run if eventName or element changes
   );
 };
