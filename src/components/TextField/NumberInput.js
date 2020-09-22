@@ -72,6 +72,9 @@ export const PnNumberInput = ({
     const containerElement = inputContainerEl.current;
     let targetElement = event.target; // clicked element
     do {
+      if(targetElement.parentNode?.className?.includes("action")) {
+        return;
+      }
       if (targetElement === containerElement) {
         setOpen(true);
         return;
@@ -236,8 +239,8 @@ export const PnNumberInput = ({
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
-          <div className={`${classes.actionBtn} ${classes.clearIcon}`} ><ClearIcon onClick={handleCancel} style={{ fontSize: 24 }}/></div>
-          <div className={`${classes.actionBtn} ${classes.doneIcon}`}><DoneIcon onClick={() => handleSave(value)} style={{ fontSize: 24 }}/></div>
+          <div className={`${classes.actionBtn} ${classes.clearIcon} action`} ><ClearIcon onClick={handleCancel} style={{ fontSize: 24 }}/></div>
+          <div className={`${classes.actionBtn} ${classes.doneIcon} action`}><DoneIcon onClick={() => handleSave(value)} style={{ fontSize: 24 }}/></div>
         </div>
         }
       </div>

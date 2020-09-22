@@ -34,13 +34,17 @@ export const PnTextInput = ({
     const containerElement = inputContainerEl.current;
     let targetElement = event.target; // clicked element
     do {
+      if(targetElement.parentNode?.className?.includes("action")) {
+        return;
+      }
       if (targetElement === containerElement) {
         setOpen(true);
         return;
       }
       // Go up the DOM.
-      targetElement = targetElement.parentNode;
+      targetElement = targetElement.parentNode?.parentNode;
     } while (targetElement);
+    
     handleSave(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, defaultValue, autoSave]);
@@ -126,8 +130,8 @@ export const PnTextInput = ({
       <div className={classes.hepperText}>
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
-          <div className={`${classes.actionBtn} ${classes.clearIcon}`} onClick={handleCancel}><ClearIcon className={classes.icon} /></div>
-          <div className={`${classes.actionBtn} ${classes.doneIcon}`} onClick={() => handleSave(value)}><DoneIcon className={classes.icon}  /></div>
+          <div className={`${classes.actionBtn} ${classes.clearIcon} action`} onClick={handleCancel}><ClearIcon className={classes.icon} /></div>
+          <div className={`${classes.actionBtn} ${classes.doneIcon} action`} onClick={() => handleSave(value)}><DoneIcon className={classes.icon}  /></div>
         </div>
         }
       </div>
