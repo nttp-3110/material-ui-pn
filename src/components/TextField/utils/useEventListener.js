@@ -25,15 +25,14 @@ export default function useEventListener(eventName, handler, unmountFunc, elemen
       const eventListener = event => savedHandler.current(event);
 
       // Add event listener
-      element.addEventListener(eventName, eventListener);
+      element.addEventListener(eventName, eventListener, true);
 
       // Remove event listener on cleanup
       return () => {
         if (unmountFunc) {
-          console.log('unmou');
           unmountFunc();
         };
-        element.removeEventListener(eventName, eventListener);
+        element.removeEventListener(eventName, eventListener, true);
       };
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

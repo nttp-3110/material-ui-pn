@@ -23,6 +23,7 @@ export const PnTextInput = ({
   const inputContainerEl = useRef(null);
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const [currentEl, setCurrentEl] = useState(null);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -39,15 +40,17 @@ export const PnTextInput = ({
       }
       if (targetElement === containerElement) {
         setOpen(true);
+        setCurrentEl(inputRef?.current);
         return;
       }
       // Go up the DOM.
       targetElement = targetElement.parentNode?.parentNode;
     } while (targetElement);
-    
-    handleSave(value);
+    if (inputRef.current === currentEl) {
+      handleSave();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, defaultValue, autoSave]);
+  }, [value, defaultValue, autoSave, currentEl]);
 
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
@@ -73,26 +76,30 @@ export const PnTextInput = ({
   const handleCancel = useCallback((e) => {
     setValue(defaultValue);
     setOpen(false);
+    setCurrentEl(null);
     if (onAbort) {
       onAbort();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSave = useCallback((inputVal) => {
+  const handleSave = useCallback((val) => {
     if (!autoSave) {
       return;
     }
+    const inputVal = val || value;
     setOpen(false);
+    setCurrentEl(null);
+
     if (inputVal === defaultValue) {
       return;
     }
-    alert(inputVal);
+    console.log('text =======', inputVal);
     if (onSave) {
       onSave(inputVal);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValue, autoSave]);
+  }, [value, defaultValue, autoSave]);
 
   useEventListener('click', handleClick, () => handleSave(inputRef?.current?.value));
 

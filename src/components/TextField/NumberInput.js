@@ -61,6 +61,7 @@ export const PnNumberInput = ({
   const inputContainerEl = useRef(null);
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const [currentEl, setCurrentEl] = useState(null);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -76,17 +77,24 @@ export const PnNumberInput = ({
         return;
       }
       if (targetElement === containerElement) {
+        setCurrentEl(inputRef?.current);
         setOpen(true);
         return;
       }
       // Go up the DOM.
       targetElement = targetElement.parentNode;
     } while (targetElement);
-    handleSave();
+    if (inputRef.current === currentEl) {
+      handleSave();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, autoSave]);
+  }, [value, autoSave, currentEl]);
 
   const handleKeyPress = useCallback(evt => {
+    if (evt.target !== inputRef?.current) {
+      return;
+    }
     if ((evt.which < 48 && ![45, 46].includes(evt.which )) || evt.which > 57) {
       evt.preventDefault();
       return;
@@ -111,7 +119,7 @@ export const PnNumberInput = ({
     }
     return true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [decimal, value]);
+  }, [decimal, value, inputRef]);
 
   const updateValue = useCallback((val) => {
     if (!isNil(min) && Number(val) < Number(min)) {
@@ -159,6 +167,7 @@ export const PnNumberInput = ({
   const handleCancel = useCallback((e) => {
     setValue(defaultValue);
     setOpen(false);
+    setCurrentEl(null);
     if (onAbort) {
       onAbort();
     }
@@ -171,10 +180,11 @@ export const PnNumberInput = ({
     }
     const inputVal = val || value;
     setOpen(false);
+    setCurrentEl(null);
     if (inputVal === defaultValue || isNaN(inputVal)) {
       return;
     }
-    alert(inputVal);
+    console.log('number =======', inputVal);
     if (onSave) {
       onSave(inputVal);
     }
@@ -270,7 +280,7 @@ PnNumberInput.propTypes = {
 PnNumberInput.defaultProps = {
   required: false,
   label: '',
-  placeholder: 'placeholder', 
+  placeholder: '0.00', 
   autoSave: false,
   defaultValue: '',
 

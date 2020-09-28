@@ -24,10 +24,10 @@ export const Page = ({ user, onLogin, onLogout, onCreateAccount }) => (
             <PnNumberInput label='Number auto save' autoSave />
           </Grid>
           <Grid item xs={4}>
-            <PnNumberInput label='Number' />
+            <PnNumberInput label='Number 1' autoSave/>
           </Grid>
           <Grid item xs={4}>
-            <PnTextInput label='label 3' />
+            <PnNumberInput label='Number 2' autoSave/>
           </Grid>
           <Grid item xs={4}>
             <PnTextInput label='Label - 4 Col - Idle' autoSave/>
