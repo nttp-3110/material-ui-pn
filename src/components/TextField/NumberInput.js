@@ -55,7 +55,7 @@ function toFixedTrunc(x, n) {
 export const PnNumberInput = ({
   required, label, defaultValue, placeholder, className,
   min, max, decimal,
-  onChange, autoSave, onSave, onAbort,
+  onChange, autoSave, onSave, onAbort, inputProps, InputProps,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
@@ -233,7 +233,8 @@ export const PnNumberInput = ({
           placeholder={placeholder}
           type='text'
           inputProps={{
-            ref: inputRef
+            ref: inputRef,
+            ...inputProps
           }}
           // InputProps={{
           //   endAdornment: <InputAdornment position='end' className={classes.controlActionWrapper}>
@@ -275,7 +276,9 @@ PnNumberInput.propTypes = {
   className: PropTypes.string,
   decimal: PropTypes.number,
   min: PropTypes.number,
-  max: PropTypes.number
+  max: PropTypes.number,
+  inputProps: PropTypes.any,
+  InputProps: PropTypes.any
 };
 
 PnNumberInput.defaultProps = {
@@ -294,5 +297,7 @@ PnNumberInput.defaultProps = {
   className: '',
   decimal: null,
   min: null,
-  max: null
+  max: null,
+  inputProps: {},
+  InputProps: {}
 };

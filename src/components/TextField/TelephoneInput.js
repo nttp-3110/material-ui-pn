@@ -27,7 +27,7 @@ function formatPhoneNumber(phoneNumberString) {
 export const PnTelephoneInput = ({
   required, label, defaultValue, placeholder, className,
   onChange, autoSave, onSave, onAbort,
-  inputProps,
+  inputProps, InputProps,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
@@ -177,12 +177,13 @@ export const PnTelephoneInput = ({
           onChange={handleChange}
           placeholder={placeholder}
           inputProps={{
-            ref: inputRef
+            ref: inputRef,
+            ...inputProps
           }}
           InputProps={{
-            ...inputProps,
+            ...InputProps,
             endAdornment: <InputAdornment position='end'>
-              {inputProps?.endAdornment}
+              {InputProps?.endAdornment}
               {error && <ErrorOutlineIcon className={`${classes.hasError}`} />}
             </InputAdornment>,
 
@@ -215,7 +216,8 @@ PnTelephoneInput.propTypes = {
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
   className: PropTypes.string,
-  inputProps: PropTypes.any
+  inputProps: PropTypes.any,
+  InputProps: PropTypes.any
 };
 
 PnTelephoneInput.defaultProps = {
@@ -232,5 +234,6 @@ PnTelephoneInput.defaultProps = {
   errorMessage: '',
   error: false,
   className: '',
-  inputProps: {}
+  inputProps: {},
+  InputProps: {}
 };

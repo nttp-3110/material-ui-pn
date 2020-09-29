@@ -17,7 +17,7 @@ import useStyles from './styled';
 export const PnTextInput = ({
   required, label, defaultValue, placeholder, className,
   onChange, autoSave, onSave, onAbort,
-  inputProps,
+  inputProps, InputProps,
   ...props }) => {
   const classes = useStyles();
   const inputContainerEl = useRef(null);
@@ -123,12 +123,13 @@ export const PnTextInput = ({
           onChange={handleChange}
           placeholder={placeholder}
           inputProps={{
-            ref: inputRef
+            ref: inputRef,
+            ...inputProps
           }}
           InputProps={{
-            ...inputProps,
+            ...InputProps,
             endAdornment: <InputAdornment position='end'>
-              {inputProps?.endAdornment}
+              {InputProps?.endAdornment}
               {error && <ErrorOutlineIcon className={`${classes.hasError}`} />}
             </InputAdornment>,
            
@@ -161,7 +162,8 @@ PnTextInput.propTypes = {
   errorMessage: PropTypes.string,
   error: PropTypes.bool,
   className: PropTypes.string,
-  inputProps: PropTypes.any
+  inputProps: PropTypes.any,
+  InputProps: PropTypes.any
 };
 
 PnTextInput.defaultProps = {
@@ -178,5 +180,6 @@ PnTextInput.defaultProps = {
   errorMessage: '',
   error: false,
   className: '',
-  inputProps: {}
+  inputProps: {},
+  InputProps: {}
 };
