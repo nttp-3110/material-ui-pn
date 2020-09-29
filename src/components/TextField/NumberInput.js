@@ -78,6 +78,7 @@ export const PnNumberInput = ({
       }
       if (targetElement === containerElement) {
         setCurrentEl(inputRef?.current);
+        inputRef.current.focus();
         setOpen(true);
         return;
       }
