@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     label: {
         padding: '6px 8px',
         fontSize: '15px',
+        fontWeight: '600',
         display: 'block',
         color: '#212529',
         whiteSpace: 'nowrap',

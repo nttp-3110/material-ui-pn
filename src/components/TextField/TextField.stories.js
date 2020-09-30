@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PnTextInput, PnNumberInput} from '.';
+import { PnTextInput, PnNumberInput, PnTelephoneInput } from '.';
 
 export default {
   title: 'Components/TextField',
@@ -12,6 +12,7 @@ export default {
 
 const PnTextInputTemplate = (args) => <PnTextInput {...args} />;
 const PnNumberInputTemplate = (args) => <PnNumberInput {...args} />;
+const PnTelephoneInputTemplate = (args) => <PnTelephoneInput {...args} />;
 
 export const TextInput = PnTextInputTemplate.bind({});
 TextInput.args = {
@@ -49,4 +50,23 @@ NumberInput.args = {
   decimal: 2,
   min: -100,
   max: 10000
+};
+
+
+export const TelephoneInput = PnTelephoneInputTemplate.bind({});
+TelephoneInput.args = {
+  label: 'Input',
+  defaultValue: '',
+  autoSave: true,
+  inputProps: { maxLength: 10, minLength: 8 },
+  required: true,
+  placeholder: 'placeholder',
+
+  onChange: undefined,
+  onSave: undefined,
+  onAbort: undefined,
+
+  errorMessage: '',
+  error: false,
+  className: ''
 };
