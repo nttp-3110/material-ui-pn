@@ -1,7 +1,6 @@
 import React from 'react';
 import {TblButton} from '.';
 
-// This default export determines where your story goes in the story list
 export default {
   title: 'Components/Button',
   component: TblButton,
@@ -9,8 +8,28 @@ export default {
 
 const Template = (args) => <TblButton {...args} />;
 
-export const ButtonTemplate = Template.bind({});
+export const Solid = Template.bind({});
 
-ButtonTemplate.args = {
-  
+Solid.args = {
+  size: 'large',
+  variant: 'contained',
+  children: 'Button',
+  disabled: false
+};
+
+export const Outline = Template.bind({});
+
+Outline.args = {
+  size: 'large',
+  variant: 'outlined',
+  children: 'Button',
+  disabled: false
+};
+
+export const Subtle = Template.bind({});
+
+Subtle.args = {
+  size: 'large',
+  children: 'Button',
+  disabled: false
 };
