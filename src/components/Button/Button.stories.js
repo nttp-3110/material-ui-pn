@@ -13,7 +13,7 @@ export const Solid = Template.bind({});
 Solid.args = {
   size: 'large',
   variant: 'contained',
-  children: 'Button',
+  children: 'Button Label',
   disabled: false
 };
 
@@ -22,7 +22,7 @@ export const Outline = Template.bind({});
 Outline.args = {
   size: 'large',
   variant: 'outlined',
-  children: 'Button',
+  children: 'Button Label',
   disabled: false
 };
 
@@ -30,6 +30,15 @@ export const Subtle = Template.bind({});
 
 Subtle.args = {
   size: 'large',
-  children: 'Button',
+  children: 'Button Label',
+  disabled: false
+};
+
+export const Ghost = Template.bind({});
+
+Ghost.args = {
+  className: 'ghost',
+  size: 'large',
+  children: 'Button Label',
   disabled: false
 };

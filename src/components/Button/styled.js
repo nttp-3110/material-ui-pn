@@ -42,7 +42,25 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: '#1A7AE6',
-  }
+    '&:hover': {
+      backgroundColor: '#EBF1F9'
+    },
+    '&:active': {
+      backgroundColor: '#ADC8EB'
+    }
+  },
+  '.ghost': {
+    '& .MuiButton-text': {
+      color: '#212529',
+      '&:hover': {
+        backgroundColor: '#E9ECEF',
+        border: '1px solid #ADB5BD'
+      },
+      '&:active': {
+        backgroundColor: '#ADC8EB'
+      }
+    },
+  },
 }));
 
 export default useStyles;
