@@ -4,8 +4,103 @@ const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: '8px',
     textTransform: 'none',
+    fontSize: '16px',
     fontWeight: '500',
     boxShadow: 'none',
+    '&.loading': {
+      '& .MuiButton-contained': {
+        backgroundColor: '#ADC8EB',
+        color: '#FFFFFF',
+        boxShadow: 'none',
+        '& .MuiCircularProgress-root': {
+          color: '#1A7AE6'
+        },
+      },
+      '& .MuiButton-outlined': {
+        color: '#ADC8EB',
+        '&:hover': {
+          backgroundColor: '#FFFFFF'
+        },
+        '& .MuiCircularProgress-root': {
+          color: '#1A7AE6'
+        },
+      },
+      '& .MuiButton-text': {
+        color: '#ADC8EB',
+        '&:hover': {
+          backgroundColor: '#FFFFFF'
+        },
+        '& .MuiCircularProgress-root': {
+          color: '#1A7AE6'
+        },
+      },
+      '&.ghost .MuiButton-text': {
+        color: '#ADB5BD',
+        '&:hover': {
+          border: 'none',
+        },
+        '& .MuiCircularProgress-root': {
+          color: '#212529',
+        },
+      },
+      '&.danger .MuiButton-contained': {
+        backgroundColor: '#E03131',
+        '& .MuiCircularProgress-root': {
+          color: '#FFFFFF'
+        },
+      },
+      '&.inverse .MuiButton-outlined': {
+        color: '#ADC8EB;',
+        '&:hover': {
+          boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.16)',
+        },
+        '&:active': {
+          boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.16)',
+        },
+        '& .MuiCircularProgress-root': {
+          color: '#1A7AE6'
+        }
+      },
+    },
+    '&.ghost .MuiButton-text': {
+      color: '#212529',
+      '&:hover': {
+        backgroundColor: '#E9ECEF',
+        border: '1px solid #ADB5BD'
+      },
+      '&:active': {
+        backgroundColor: '#DEE2E6',
+        border: '1px solid #ADB5BD'
+      }
+    },
+    '&.danger .MuiButton-contained': {
+      backgroundColor: '#E03131',
+      '&:hover': {
+        backgroundColor: '#F03E3E',
+      },
+      '&:active': {
+        backgroundColor: '#C92A2A'
+      }
+    },
+    '&.inverse .MuiButton-outlined': {
+      color: '#1A7AE6',
+      backgroundColor: '#FFFFFF',
+      boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.16)',
+      border: 'none',
+      '&:hover': {
+        backgroundColor: '#2268C3',
+        color: '#FFFFFF',
+        boxShadow: 'none'
+      },
+      '&:active': {
+        backgroundColor: '#2268C3',
+        color: '#FFFFFF',
+        boxShadow: 'none'
+      },
+      '&.Mui-disabled': {
+        boxShadow: 'none'
+      }
+    },
   },
   sizeLarge: {
     fontSize: '16px',
@@ -15,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
   },
   disabled: {
     color: '#ADB5BD !important',
-    backgroundColor: '#F1F3F5 !important'
+    backgroundColor: '#F1F3F5 !important',
   },
   contained: {
     backgroundColor: '#1A7AE6',
@@ -48,18 +143,6 @@ const useStyles = makeStyles((theme) => ({
     '&:active': {
       backgroundColor: '#ADC8EB'
     }
-  },
-  '.ghost': {
-    '& .MuiButton-text': {
-      color: '#212529',
-      '&:hover': {
-        backgroundColor: '#E9ECEF',
-        border: '1px solid #ADB5BD'
-      },
-      '&:active': {
-        backgroundColor: '#ADC8EB'
-      }
-    },
   },
 }));
 

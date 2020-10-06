@@ -42,3 +42,23 @@ Ghost.args = {
   children: 'Button Label',
   disabled: false
 };
+
+export const Danger = Template.bind({});
+
+Danger.args = {
+  className: 'danger',
+  size: 'large',
+  children: 'Button Label',
+  disabled: false,
+  variant: 'contained',
+};
+
+export const Inverse = Template.bind({});
+
+Inverse.args = {
+  className: 'inverse',
+  size: 'large',
+  children: 'Button Label',
+  disabled: false,
+  variant: 'outlined',
+};
