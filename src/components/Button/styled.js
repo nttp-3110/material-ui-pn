@@ -6,7 +6,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     fontSize: '16px',
     fontWeight: '500',
-    boxShadow: 'none',
+    '& .MuiButton-root': {
+      boxShadow: 'none',
+      margin: '8px',
+      padding: '10px 16px',
+      minWidth: '80px',
+    },
     '&.loading': {
       '& .MuiButton-contained': {
         backgroundColor: '#ADC8EB',
@@ -102,12 +107,6 @@ const useStyles = makeStyles((theme) => ({
       }
     },
   },
-  sizeLarge: {
-    fontSize: '16px',
-    lineHeight: '24px',
-    minWidth: '140px',
-    minHeight: '48px'
-  },
   disabled: {
     color: '#ADB5BD !important',
     backgroundColor: '#F1F3F5 !important',
@@ -144,6 +143,15 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#ADC8EB'
     }
   },
+  sizeSmall: {
+    padding: '4px 12px',
+    minWidth: '80px'
+  },
+
+  sizeLarge: {
+    padding: '16px 24px',
+    minWidth: '80px'
+  }
 }));
 
 export default useStyles;

@@ -1,9 +1,14 @@
 import React from 'react';
-import {TblButton} from '.';
+import { TblButton } from '.';
 
 export default {
   title: 'Components/Button',
   component: TblButton,
+  argTypes: {
+    size: {
+      control: {} 
+    },
+  },
 };
 
 const Template = (args) => <TblButton {...args} />;
@@ -11,8 +16,8 @@ const Template = (args) => <TblButton {...args} />;
 export const Solid = Template.bind({});
 
 Solid.args = {
-  size: 'large',
-  variant: 'contained',
+  className: 'solid',
+  size: ['large', 'medium', 'small'],
   children: 'Button Label',
   disabled: false
 };
@@ -20,8 +25,8 @@ Solid.args = {
 export const Outline = Template.bind({});
 
 Outline.args = {
+  className: 'outline',
   size: 'large',
-  variant: 'outlined',
   children: 'Button Label',
   disabled: false
 };
@@ -29,6 +34,7 @@ Outline.args = {
 export const Subtle = Template.bind({});
 
 Subtle.args = {
+  className: 'subtle',
   size: 'large',
   children: 'Button Label',
   disabled: false
@@ -59,6 +65,5 @@ Inverse.args = {
   className: 'inverse',
   size: 'large',
   children: 'Button Label',
-  disabled: false,
-  variant: 'outlined',
+  disabled: false
 };
