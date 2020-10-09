@@ -6,9 +6,15 @@ export default {
   component: TblButton,
   argTypes: {
     size: {
-      control: {} 
+      control: {
+        type: 'select',
+        options: ['large', 'medium', 'small']
+      }
     },
   },
+  args: {
+    size: 'medium'
+  }
 };
 
 const Template = (args) => <TblButton {...args} />;
@@ -17,7 +23,6 @@ export const Solid = Template.bind({});
 
 Solid.args = {
   className: 'solid',
-  size: ['large', 'medium', 'small'],
   children: 'Button Label',
   disabled: false
 };

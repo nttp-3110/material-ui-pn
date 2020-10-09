@@ -35,7 +35,7 @@ export function TblButton(props) {
     <div className={clsx(classes.root, { [className]: !!className, 'loading': isShowCircularProgress })}>
       <Button classes={classes} variant={variant} {...rest}>
         {!!isShowCircularProgress &&
-          <Box mr={1.25}>
+          <Box mr={1.25} display='flex' alignItems='center'>
             <CircularProgress size={16} color='inherit' />
           </Box>
         }

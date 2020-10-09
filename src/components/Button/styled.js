@@ -144,13 +144,10 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   sizeSmall: {
-    padding: '4px 12px',
-    minWidth: '80px'
+    padding: '4px 12px !important'
   },
-
   sizeLarge: {
-    padding: '16px 24px',
-    minWidth: '80px'
+    padding: '16px 24px !important'
   }
 }));
 
