@@ -1,9 +1,9 @@
 import React from 'react';
-import { TblButton } from '.';
+import { ButtonMaterial } from '.';
 
 export default {
   title: 'Components/Button',
-  component: TblButton,
+  component: ButtonMaterial,
   argTypes: {
     size: {
       control: {
@@ -17,7 +17,7 @@ export default {
   }
 };
 
-const Template = (args) => <TblButton {...args} />;
+const Template = (args) => <ButtonMaterial {...args} />;
 
 export const Solid = Template.bind({});
 

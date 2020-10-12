@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 
 import useStyles from './styled';
 
-export function TblButton(props) {
+export function ButtonMaterial(props) {
   const classes = useStyles();
   const [variant, setVariant] = useState('text');
   const { children, isShowCircularProgress, className, ...rest } = props;
@@ -45,7 +45,7 @@ export function TblButton(props) {
   );
 }
 
-TblButton.propTypes = {
+ButtonMaterial.propTypes = {
   isShowCircularProgress: PropTypes.bool,
   children: PropTypes.any,
   className: PropTypes.string
