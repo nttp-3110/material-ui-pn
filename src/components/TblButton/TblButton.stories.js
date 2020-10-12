@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from '.';
 
+import ThemeContainer from './ThemeContainer';
+
 export default {
   title: 'Components/TblButton',
   component: Button,
 };
 
-const Template = (args) => <Button {...args} />;
+const Template = (args) => <ThemeContainer><Button {...args} /></ThemeContainer>;
 
 export const Solid = Template.bind({});
 
