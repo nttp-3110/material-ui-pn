@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -7,7 +7,7 @@ import useStyles from './styled';
 function TblButton(props) {
   const classes = useStyles();
   const { label, size, type } = props;
-  const [shape, setShape] = useState('text');
+  // const [shape, setShape] = useState('text');
 
   // useEffect(() => {
   //   let newShape = 'text';
