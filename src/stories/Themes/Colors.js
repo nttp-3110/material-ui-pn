@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { default as openColors } from '../../themes/open-color.json'; //NOTE: Use open color at https://yeun.github.io/open-color/
 import mainColors from '../../themes/colors'; //NOTE: This is colors of our project
-import { fontSize, fontSizeIcon, fontWeight } from '../../themes/fontSize'; //NOTE: This is colors of our project
+import { fontSize, fontWeight } from '../../themes/fontSize'; //NOTE: This is colors of our project
 const borderRadius = 12;
 const width = 88;
 const height = 64;
