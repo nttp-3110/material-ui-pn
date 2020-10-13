@@ -1,18 +1,12 @@
 const colors = {
-  primary1: [
-    '#43425d',
-    '#4b4a69',
-    '#37364d'
-  ],
-  primary2: [
-    '#258fd6',
-    '#2eabff',
-    '#1f82c4'
-  ],
-  primary3: [
-    '#a5a4bf',
-    '#bbbad1',
-    '#9796b5'
+  primary: [
+    '#0A2E5C',
+    '#174582',
+    '#2268C3',
+    '#1A7AE5',
+    '#4792EB',
+    '#ADC8EB',
+    '#EBF1F9'
   ],
   neutral: [
     '#212529',
