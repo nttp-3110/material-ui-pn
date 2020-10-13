@@ -10,7 +10,8 @@ const fontSize = {
   body1: '16px',
   body2: '14px',
   caption: '12px',
-  button: '16px'
+  label: '14px',
+  button: '14px'
 };
 
 const fontSizeIcon = {
