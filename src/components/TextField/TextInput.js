@@ -35,7 +35,7 @@ export const PnTextInput = ({
     const containerElement = inputContainerEl.current;
     let targetElement = event.target; // clicked element
     do {
-      if(targetElement.parentNode?.className?.includes("action")) {
+      if(targetElement.parentNode?.className?.includes('action')) {
         return;
       }
       if (targetElement === containerElement) {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import ThemeContainer from './ThemeContainer';
 import useStyles from './styled';
 
 function TblButton(props) {
@@ -32,21 +33,24 @@ function TblButton(props) {
   //   }
   // }, [shape, type]);
   return (
-    <button
-      className={clsx(classes.root, {
-        [classes.largeSize]: size === 'large',
-        [classes.smallSize]: size === 'small',
-        [classes[type]]: !!type,
-      })}
-    >
-      <div className={classes.label}>{label}</div>
-    </button>
+    <ThemeContainer>
+       <button
+      // className={clsx(classes.root, {
+      //   [classes.largeSize]: size === 'large',
+      //   [classes.smallSize]: size === 'small',
+      //   [classes[type]]: !!type,
+      // })}
+      >
+        {/* <div className={classes.label}>{label}</div> */}
+        {label}
+      </button>
+    </ThemeContainer>
   );
 }
 
 TblButton.propTypes = {
   label: PropTypes.string,
-  size: PropTypes.number
+  size: PropTypes.string
 };
 
 export default TblButton;

@@ -1,11 +1,11 @@
 import React from 'react';
 import TblButton from '.';
-
-import ThemeContainer from './ThemeContainer';
+import { withKnobs } from '@storybook/addon-knobs';
 
 export default {
   title: 'Components/TblButton',
   component: TblButton,
+  decorators: [withKnobs],
   argTypes: {
     size: {
       control: {
@@ -19,9 +19,9 @@ export default {
   }
 };
 
-const Template = (args) => <ThemeContainer><TblButton {...args} /></ThemeContainer>;
+const ButtonTemplate = (args) => <TblButton {...args} />;
 
-export const Solid = Template.bind({});
+export const Solid = ButtonTemplate.bind({});
 
 Solid.args = {
   type: 'solid',
