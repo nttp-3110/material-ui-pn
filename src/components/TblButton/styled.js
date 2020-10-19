@@ -2,7 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { default as openColors } from '../../themes/open-color.json'; //NOTE: Use open color at https://yeun.github.io/open-color/
 import mainColors from '../../themes/colors'; //NOTE: This is colors of our project
-import { fontSize, fontSizeIcon, fontWeight } from '../../themes/fontSize'; //NOTE: This is colors of our project
+import { fontSize, 
+  // fontSizeIcon, fontWeight 
+} from '../../themes/fontSize'; //NOTE: This is colors of our project
 
 const useStyles = makeStyles((theme) => { console.log('theme',theme);return{
   '@keyframes spin': {
