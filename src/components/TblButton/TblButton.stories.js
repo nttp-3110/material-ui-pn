@@ -1,11 +1,13 @@
 import React from 'react';
+import { ThemeProvider } from '@material-ui/core/styles';
+
 import TblButton from '.';
-// import { withKnobs } from '@storybook/addon-knobs';
+import theme from './theme';
 
 export default {
   title: 'Components/TblButton',
   component: TblButton,
-  // decorators: [withKnobs],
+  decorators: [(Story) => <ThemeProvider theme={theme}><Story /></ThemeProvider>],
   argTypes: {
     size: {
       control: {
