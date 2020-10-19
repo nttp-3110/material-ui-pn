@@ -1,13 +1,16 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
+import ScopedCssBaseline from '@material-ui/core/ScopedCssBaseline';
 
-import theme from './theme';
+import customTheme from './theme';
 
 export default ({ children }) => {
 
   return (
-    <ThemeProvider theme={theme}>
-      {children}
+    <ThemeProvider theme={customTheme}>
+      <ScopedCssBaseline>
+        {children}
+      </ScopedCssBaseline>
     </ThemeProvider>
   );
 };

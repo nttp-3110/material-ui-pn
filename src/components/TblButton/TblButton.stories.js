@@ -1,13 +1,11 @@
 import React from 'react';
-// import { ThemeProvider } from '@material-ui/core/styles';
 
 import TblButton from '.';
-// import theme from './theme';
+import ThemeContainer from './ThemeContainer';
 
 export default {
   title: 'Components/TblButton',
   component: TblButton,
-  // decorators: [(Story) => <ThemeProvider theme={theme}><Story /></ThemeProvider>],
   argTypes: {
     size: {
       control: {
@@ -21,7 +19,7 @@ export default {
   }
 };
 
-const ButtonTemplate = (args) => <TblButton {...args} />;
+const ButtonTemplate = (args) => <ThemeContainer><TblButton {...args} /> </ThemeContainer>;
 
 export const Solid = ButtonTemplate.bind({});
 

@@ -8,15 +8,15 @@ import { fontSize, fontSizeIcon, fontWeight } from '../../themes/fontSize'; //NO
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: mainColors.primary1[0],
-      light: mainColors.primary1[1],
-      dark: mainColors.primary1[2],
+      main: mainColors.primary[0],
+      light: mainColors.primary[1],
+      dark: mainColors.primary[2],
       contrastText: openColors.white
     },
     secondary: {
-      main: mainColors.primary2[0],
-      light: mainColors.primary2[1],
-      dark: mainColors.primary2[2],
+      main: mainColors.primary[0],
+      light: mainColors.primary[1],
+      dark: mainColors.primary[2],
       contrastText: openColors.white
     },
   },

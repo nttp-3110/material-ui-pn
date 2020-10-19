@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-// import ThemeContainer from './ThemeContainer';
 import useStyles from './styled';
 
 function TblButton(props) {
   const classes = useStyles();
   const { label, size, type, disabled, isShowLoading } = props;
   return (
-    // <ThemeContainer>
     <button
       className={clsx(classes.root, {
         [classes.largeSize]: size === 'large',
@@ -22,7 +20,6 @@ function TblButton(props) {
       {isShowLoading && <div className='loader' />}
       <div className='label'>{label}</div>
     </button>
-    // </ThemeContainer>
   );
 }
 

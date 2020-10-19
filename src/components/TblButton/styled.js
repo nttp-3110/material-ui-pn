@@ -1,25 +1,19 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-import { default as openColors } from '../../themes/open-color.json'; //NOTE: Use open color at https://yeun.github.io/open-color/
-import mainColors from '../../themes/colors'; //NOTE: This is colors of our project
-import { fontSize, 
-  // fontSizeIcon, fontWeight 
-} from '../../themes/fontSize'; //NOTE: This is colors of our project
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => {console.log('theme in styled',theme); return {
   '@keyframes spin': {
     '0%': { transform: 'rotate(0deg)' },
     '100%': { transform: 'rotate(360deg)' }
   },
   root: {
-    borderRadius: '8px',
+    borderRadius: theme.spacing(1),
     border: 'none',
     display: 'flex',
     alignItems: 'center',
     //Normal button
-    minWidth: '80px',
-    margin: '8px',
-    padding: '10px 16px',
+    minWidth: theme.spacing(10),
+    margin: theme.spacing(1),
+    padding: theme.spacing(1.25, 2),
     '&:hover': {
       cursor: 'pointer'
     },
@@ -27,99 +21,99 @@ const useStyles = makeStyles((theme) => ({
       outline: 'none'
     },
     '& .label': {
-      fontSize: fontSize.body1,
-      color: openColors.white,
+      fontSize: theme.fontSize.body1,
+      color: theme.openColors.white,
       fontWeight: '500',
       lineHeight: '24px'
     },
     '& .loader': {
-      marginRight: '10px',
+      marginRight: theme.spacing(1.25),
       border: '2px solid #1A7AE6',
       borderRadius: '50%',
       borderTop: '2px solid transparent',
-      width: '16px',
-      height: '16px',
+      width: theme.spacing(2),
+      height: theme.spacing(2),
       animation: '$spin 2s linear infinite'
     },
   },
   //Style for size
   largeSize: {
-    padding: '16px 24px'
+    padding: theme.spacing(2, 3)
   },
   smallSize: {
-    padding: '4px 12px'
+    padding: theme.spacing(0.5, 1.5)
   },
   //Style for shape
   solid: {
     backgroundColor: '#1A7AE6',
     // color: mainColors.
     '&:hover': {
-      backgroundColor: mainColors.primary[2]
+      backgroundColor: theme.mainColors.primary[2]
     },
     '&:active': {
       backgroundColor: '#1B5198'
     },
     '&.loading': {
-      backgroundColor: mainColors.primary[5]
+      backgroundColor: theme.mainColors.primary[5]
     }
   },
   outline: {
-    backgroundColor: openColors.white,
+    backgroundColor: theme.openColors.white,
     border: '1px solid #1A7AE6',
     '& .label': {
-      color: mainColors.primary[3],
+      color: theme.mainColors.primary[3],
     },
     '&:hover': {
-      backgroundColor: mainColors.primary[2],
+      backgroundColor: theme.mainColors.primary[2],
       '& .label': {
-        color: openColors.white,
+        color: theme.openColors.white,
       },
     },
     '&:active': {
       backgroundColor: '#1B5198',
       '& .label': {
-        color: openColors.white,
+        color: theme.openColors.white,
       },
     },
     '&.loading': {
-      border: `1px solid ${mainColors.primary[5]}`,
+      border: `1px solid ${theme.mainColors.primary[5]}`,
       '& .label': {
-        color: mainColors.primary[5],
+        color: theme.mainColors.primary[5],
       },
     }
   },
   subtle: {
-    backgroundColor: openColors.white,
+    backgroundColor: theme.openColors.white,
     '& .label': {
       color: '#1A7AE6',
     },
     '&:hover': {
-      backgroundColor: mainColors.primary[6]
+      backgroundColor: theme.mainColors.primary[6]
     },
     '&:active': {
-      backgroundColor: mainColors.primary[5]
+      backgroundColor: theme.mainColors.primary[5]
     },
     '&.loading': {
       '& .label': {
-        color: mainColors.primary[5],
+        color: theme.mainColors.primary[5],
       },
     }
   },
   ghost: {
-    backgroundColor: openColors.white,
+    backgroundColor: theme.openColors.white,
     '& .label': {
-      color: mainColors.neutral[0]
+      color: theme.mainColors.neutral[0]
     },
     '&:hover': {
-      backgroundColor: openColors.gray[2],
-      border: `1px solid ${openColors.gray[5]}`
+      backgroundColor: theme.openColors.gray[2],
+      border: `1px solid ${theme.openColors.gray[5]}`
     },
     '&:active': {
-      backgroundColor: openColors.gray[3]
+      backgroundColor: theme.openColors.gray[3]
     },
     '&.loading': {
       '& .label': {
-        color: openColors.gray[5],
+        color: theme.openColors.gray[5],
       },
       '& .loader': {
         borderColor: '#212529',
@@ -128,61 +122,61 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   danger: {
-    backgroundColor: openColors.red[8],
+    backgroundColor: theme.openColors.red[8],
     '&:active': {
-      backgroundColor: openColors.red[9]
+      backgroundColor: theme.openColors.red[9]
     },
     '&.loading': {
       '& .label': {
-        color: openColors.white,
+        color: theme.openColors.white,
       },
       '& .loader': {
-        borderColor: openColors.white,
+        borderColor: theme.openColors.white,
         borderTopColor: 'transparent'
       }
     }
   },
   inverse: {
-    backgroundColor: openColors.white,
+    backgroundColor: theme.openColors.white,
     boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.16)',
     '& .label': {
-      color: mainColors.primary[3]
+      color: theme.mainColors.primary[3]
     },
     '&:hover': {
       boxShadow: 'none',
-      backgroundColor: mainColors.primary[2],
+      backgroundColor: theme.mainColors.primary[2],
       '& .label': {
-        color: openColors.white,
+        color: theme.openColors.white,
       },
     },
     '&:active': {
       boxShadow: 'none',
-      backgroundColor: mainColors.primary[2],
+      backgroundColor: theme.mainColors.primary[2],
       '& .label': {
-        color: openColors.white,
+        color: theme.openColors.white,
       },
     },
     '&.loading': {
       '& .label': {
-        color: mainColors.primary[5],
+        color: theme.mainColors.primary[5],
       },
     }
   },
   disabled: {
-    backgroundColor: openColors.gray[1],
+    backgroundColor: theme.openColors.gray[1],
     border: 'none',
     boxShadow: 'none',
     '&:hover': {
-      backgroundColor: openColors.gray[1],
+      backgroundColor: theme.openColors.gray[1],
       border: 'none',
       '& .label': {
-        color: openColors.gray[5]
+        color: theme.openColors.gray[5]
       }
     },
     '& .label': {
-      color: openColors.gray[5]
+      color: theme.openColors.gray[5]
     }
   },
-}));
+};});
 
 export default useStyles;
