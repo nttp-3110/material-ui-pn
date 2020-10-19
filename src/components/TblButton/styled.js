@@ -5,9 +5,15 @@ import mainColors from '../../themes/colors'; //NOTE: This is colors of our proj
 import { fontSize, fontSizeIcon, fontWeight } from '../../themes/fontSize'; //NOTE: This is colors of our project
 
 const useStyles = makeStyles((theme) => ({
+  '@keyframes spin': {
+    '0%': { transform: 'rotate(0deg)' },
+    '100%': { transform: 'rotate(360deg)' }
+  },
   root: {
     borderRadius: '8px',
     border: 'none',
+    display: 'flex',
+    alignItems: 'center',
     //Normal button
     minWidth: '80px',
     margin: '8px',
@@ -19,23 +25,20 @@ const useStyles = makeStyles((theme) => ({
       outline: 'none'
     },
     '& .label': {
-      fontSize: fontSize.button,
+      fontSize: fontSize.body1,
       color: openColors.white,
       fontWeight: '500',
       lineHeight: '24px'
     },
     '& .loader': {
-      border: '16px solid #f3f3f3',
+      marginRight: '10px',
+      border: '2px solid #1A7AE6',
       borderRadius: '50%',
-      borderTop: '16px solid #3498db',
-      width: '120px',
-      height: '120px',
-      animation: 'spin 2s linear infinite'
-    }
-  },
-  '@keyframes spin': {
-    '0%': { transform: 'rotate(0deg)' },
-    '100%': { transform: 'rotate(360deg)' }
+      borderTop: '2px solid transparent',
+      width: '16px',
+      height: '16px',
+      animation: '$spin 2s linear infinite'
+    },
   },
   //Style for size
   largeSize: {
@@ -53,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:active': {
       backgroundColor: '#1B5198'
+    },
+    '&.loading': {
+      backgroundColor: mainColors.primary[5]
     }
   },
   outline: {
@@ -72,6 +78,12 @@ const useStyles = makeStyles((theme) => ({
       '& .label': {
         color: openColors.white,
       },
+    },
+    '&.loading': {
+      border: `1px solid ${mainColors.primary[5]}`,
+      '& .label': {
+        color: mainColors.primary[5],
+      },
     }
   },
   subtle: {
@@ -84,6 +96,11 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:active': {
       backgroundColor: mainColors.primary[5]
+    },
+    '&.loading': {
+      '& .label': {
+        color: mainColors.primary[5],
+      },
     }
   },
   ghost: {
@@ -97,12 +114,30 @@ const useStyles = makeStyles((theme) => ({
     },
     '&:active': {
       backgroundColor: openColors.gray[3]
+    },
+    '&.loading': {
+      '& .label': {
+        color: openColors.gray[5],
+      },
+      '& .loader': {
+        borderColor: '#212529',
+        borderTopColor: 'transparent'
+      }
     }
   },
   danger: {
     backgroundColor: openColors.red[8],
     '&:active': {
       backgroundColor: openColors.red[9]
+    },
+    '&.loading': {
+      '& .label': {
+        color: openColors.white,
+      },
+      '& .loader': {
+        borderColor: openColors.white,
+        borderTopColor: 'transparent'
+      }
     }
   },
   inverse: {
@@ -123,6 +158,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: mainColors.primary[2],
       '& .label': {
         color: openColors.white,
+      },
+    },
+    '&.loading': {
+      '& .label': {
+        color: mainColors.primary[5],
       },
     }
   },

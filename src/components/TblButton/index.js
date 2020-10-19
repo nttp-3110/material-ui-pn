@@ -8,30 +8,6 @@ import useStyles from './styled';
 function TblButton(props) {
   const classes = useStyles();
   const { label, size, type, disabled, isShowLoading } = props;
-  // const [shape, setShape] = useState('text');
-
-  // useEffect(() => {
-  //   let newShape = 'text';
-  //   switch(type){
-  //     case 'solid':
-  //     case 'danger':
-  //       newShape = 'container';
-  //       break;
-  //     case 'outline':
-  //     case 'inverse':
-  //       newShape = 'outline';
-  //       break;
-  //     case 'subtle':
-  //     case 'ghost':
-  //       newShape = 'text';
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   if (newShape !== shape){
-  //     setShape(newShape);
-  //   }
-  // }, [shape, type]);
   return (
     // <ThemeContainer>
     <button
@@ -40,6 +16,7 @@ function TblButton(props) {
         [classes.smallSize]: size === 'small',
         [classes.disabled]: disabled,
         [classes[type]]: !!type,
+        'loading': isShowLoading
       })}
     >
       {isShowLoading && <div className='loader' />}

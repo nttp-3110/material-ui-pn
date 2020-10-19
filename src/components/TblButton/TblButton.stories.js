@@ -1,11 +1,11 @@
 import React from 'react';
 import TblButton from '.';
-import { withKnobs } from '@storybook/addon-knobs';
+// import { withKnobs } from '@storybook/addon-knobs';
 
 export default {
   title: 'Components/TblButton',
   component: TblButton,
-  decorators: [withKnobs],
+  // decorators: [withKnobs],
   argTypes: {
     size: {
       control: {
