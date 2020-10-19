@@ -6,19 +6,19 @@ import { fontSize,
   // fontSizeIcon, fontWeight 
 } from '../../themes/fontSize'; //NOTE: This is colors of our project
 
-const useStyles = makeStyles((theme) => { console.log('theme',theme);return{
+const useStyles = makeStyles((theme) => ({
   '@keyframes spin': {
     '0%': { transform: 'rotate(0deg)' },
     '100%': { transform: 'rotate(360deg)' }
   },
   root: {
-    borderRadius: theme.spacing(1),
+    borderRadius: '8px',
     border: 'none',
     display: 'flex',
     alignItems: 'center',
     //Normal button
-    minWidth: theme.spacing(10),
-    margin: theme.spacing(1),
+    minWidth: '80px',
+    margin: '8px',
     padding: '10px 16px',
     '&:hover': {
       cursor: 'pointer'
@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => { console.log('theme',theme);return{
       border: '2px solid #1A7AE6',
       borderRadius: '50%',
       borderTop: '2px solid transparent',
-      width: theme.spacing(2),
-      height: theme.spacing(2),
+      width: '16px',
+      height: '16px',
       animation: '$spin 2s linear infinite'
     },
   },
@@ -183,6 +183,6 @@ const useStyles = makeStyles((theme) => { console.log('theme',theme);return{
       color: openColors.gray[5]
     }
   },
-};});
+}));
 
 export default useStyles;
