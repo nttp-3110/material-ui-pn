@@ -1,17 +1,12 @@
 const fontSize = {
-  h1: '72px',
-  h2: '60px',
-  h3: '48px',
-  h4: '36px',
-  h5: '30px',
-  h6: '24px',
-  subH1: '20px',
-  subH2: '18px',
-  body1: '16px',
-  body2: '14px',
-  caption: '12px',
-  label: '14px',
-  button: '14px'
+  xSmall: '11px',
+  small: '13px',
+  normal: '15px',
+  medium: '18px',
+  xMedium: '22px',
+  large: '25px',
+  xLarge: '28px',
+  xxLarge: '35px'
 };
 
 const fontSizeIcon = {
