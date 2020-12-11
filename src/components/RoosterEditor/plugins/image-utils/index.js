@@ -24,7 +24,7 @@ export default class MathJaxPlugin {
     };
 
     onPluginEvent(e) {
-        console.log(e);
+        // console.log(e);
         if (e.eventType === 4 /* MouseDown */) {
             var event_1 = e.rawEvent;
             var target = (event_1.srcElement || event_1.target);

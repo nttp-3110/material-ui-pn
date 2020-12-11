@@ -14,6 +14,7 @@ import {
   toggleStrikethrough,
   clearBlockFormat,
   insertImage,
+  getFormatState
 } from 'roosterjs-editor-api';
 import RibbonIcons from './RibbonIcons';
 import { ButtonTitleEnum } from './constants';
@@ -22,14 +23,24 @@ const buttons = {
   heading1: {
     title: ButtonTitleEnum.HEADING1,
     image: RibbonIcons.IcnFormatHeading1,
-    onClick: editor => toggleHeader(editor, 1),
+    onClick: (editor) => {
+      const format = getFormatState(editor);
+      const level = format.headerLevel === 1 ? 0 : 1;
+      toggleHeader(editor, level);
+    },
     checked: format => format.headerLevel === 1,
   },
   heading2: {
     title: ButtonTitleEnum.HEADING2,
     image: RibbonIcons.IcnFormatHeading2,
-    onClick: editor => toggleHeader(editor, 2),
-    checked: format => format.headerLevel === 2,
+    onClick: (editor) => {
+      const format = getFormatState(editor);
+      const level = format.headerLevel === 2 ? 0 : 2;
+      toggleHeader(editor, level);
+    },
+    checked: format => {
+      return format.headerLevel === 2;
+    },
   },
   bold: {
     title: ButtonTitleEnum.BOLD,

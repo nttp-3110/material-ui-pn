@@ -81,7 +81,7 @@ export default class KatexPlugin {
     }
 
     onPluginEvent(event) {
-        console.log(event);
+        // console.log(event);
         // var selection = this.editor.getSelectionRange();
 
         // if (selection && !selection.collapsed) {

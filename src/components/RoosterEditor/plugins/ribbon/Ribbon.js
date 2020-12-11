@@ -14,7 +14,7 @@ class Ribbon extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDropDownShown: false,
+      isDropDownShown: false
     };
   }
   onMore = () => {

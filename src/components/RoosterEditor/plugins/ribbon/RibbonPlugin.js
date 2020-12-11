@@ -1,5 +1,5 @@
 // import {  EditorPlugin } from 'roosterjs-editor-core';
-import {  PluginEventType } from 'roosterjs-editor-types';
+import { PluginEventType } from 'roosterjs-editor-types';
 
 export default class RibbonPlugin {
 
