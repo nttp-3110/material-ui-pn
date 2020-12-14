@@ -41,4 +41,4 @@ InputLabel.propTypes = {
   label: PropTypes.array,
   required: PropTypes.bool,
 };
-export default withStyles(styles)(React.forwardRef((props, ref) => <InputLabel {...props} ref={ref} />));
+export default withStyles(styles)(InputLabel);

@@ -1,6 +1,6 @@
 import React from 'react';
 import RoosterReact from '../../components/RoosterEditor';
-import InputSingleSave from '../../components/RoosterEditor/shared/utils/InputSingleSave';
+import InputComponent from '../../components/RoosterEditor/shared/utils/InputComponent';
 
 import 'katex/dist/katex.min.css';
 
@@ -8,11 +8,11 @@ export const Rooster = () => {
   const [content, setContent] = React.useState(null);
   const [content2, setContent2] = React.useState(null);
   return <div style={{ position: 'relative', top: 0, bottom: 0 }}>
-    <InputSingleSave
+    <InputComponent
       required
-      label={'Editor Single Save'}
-      InputComponent={RoosterReact}
-      defaultValue={'defaultValue'}
+      autoSave
+      label={'Editor Single Save 1'}
+      Component={RoosterReact}
       handleClickInside={(inputRef) => {
         const editor = inputRef.current.getEditor();
         if (editor) {
@@ -32,11 +32,11 @@ export const Rooster = () => {
     />
     <div dangerouslySetInnerHTML={{ __html: content }} />
 
-    <InputSingleSave
+    <InputComponent
+      autoSave
       required
-      label={'Editor Single Save'}
-      InputComponent={RoosterReact}
-      defaultValue={'defaultValue'}
+      label={'Editor Single Save 2'}
+      Component={RoosterReact}
       handleClickInside={(inputRef) => {
         const editor = inputRef.current.getEditor();
         if (editor) {

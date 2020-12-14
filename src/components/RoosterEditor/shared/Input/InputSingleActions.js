@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
-import useWhyDidYouUpdate from '../hooks/useWhyDidYouUpdate';
 
 const styles = theme => ({
   root: {
@@ -51,7 +50,6 @@ const styles = theme => ({
 });
 
 const InputSingleActions = ({ classes, className, IconSave, IconCancel, handleSave, handleCancel, error, open, ...rest }) => {
-  useWhyDidYouUpdate('InputSingleActions', { classes, className, IconSave, IconCancel, handleSave, handleCancel, error, open, rest });
   return (
     <div className={`${classes.root} ${className}`}>
       {error && (
@@ -93,4 +91,4 @@ InputSingleActions.defaultProps = {
     errorMessage: ''
   },
 };
-export default withStyles(styles)(React.forwardRef((props, ref) => <InputSingleActions {...props} ref={ref} />));
+export default withStyles(styles)(InputSingleActions);
