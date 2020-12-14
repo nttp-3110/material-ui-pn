@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import startCase from 'lodash/startCase';
+
 import { withStyles } from '@material-ui/core/styles';
 import RibbonButton from './RibbonButton';
 import ribbonButtons from './ribbonButtons';
@@ -75,6 +78,9 @@ class Ribbon extends React.Component {
       { clearFormat }
     ];
 
+    const styleTextAlign = editor?.getBlockTraverser()?.scoper?.block?.element?.style?.textAlign || 'left';
+    const IcnAlign = RibbonIcons[`IcnAlign${startCase(styleTextAlign)}`];
+
     return (
       <div className={classes.ribbon + ' ' + (this.props.className || '')}>
         {buttons.map((group, index) => {
@@ -84,7 +90,7 @@ class Ribbon extends React.Component {
                 if (index === 3 && idx === 0) {
                   return (
                     <OtherOptions
-                      IconButton={RibbonIcons.IcnAlignLeft}
+                      IconButton={IcnAlign}
                       buttons={{ alignLeft, alignCenter, alignRight }}
                       plugin={plugin}
                       format={format}

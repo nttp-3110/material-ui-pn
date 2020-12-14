@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function MenuListComposition({ buttons, IconButton, plugin, format, onClicked, disabled, ...rest }) {
+export default function OtherOptions({ buttons, IconButton, plugin, format, onClicked, disabled, ...rest }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);

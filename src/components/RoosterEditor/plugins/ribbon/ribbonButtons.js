@@ -91,9 +91,7 @@ const buttons = {
   alignRight: {
     title: ButtonTitleEnum.ALIGN_RIGHT,
     image: RibbonIcons.IcnAlignRight,
-    onClick: editor => setAlignment(editor, Alignment.Right),
-    checked: format => console.log('format', format),
-
+    onClick: editor => setAlignment(editor, Alignment.Right)
   },
   insertLink: {
     title: ButtonTitleEnum.INSERT_LINK,
