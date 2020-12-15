@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -15,7 +16,9 @@
     "mathjax-full": "^3.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-perfect-scrollbar": "^1.5.8",
     "react-scripts": "3.4.3",
+    "react-select": "^3.1.1",
     "roosterjs-editor-api": "^7.16.0",
     "roosterjs-editor-core": "^7.16.0",
     "roosterjs-editor-dom": "^7.16.0",
