@@ -128,8 +128,10 @@ const AutocompleteTemplate = (args) => (
   <ThemeContainer>
     <TblAutocomplete
       options={top100Films}
+      getOptionLabel={(option) => option.title}
       renderOption={(option, { selected }) => (<Option option={option.title} selected={selected} />)}
       disableClearable={false}
+      fullWidth
       {...args}
     />
   </ThemeContainer>
