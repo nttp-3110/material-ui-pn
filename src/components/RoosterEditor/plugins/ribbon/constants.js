@@ -2,7 +2,7 @@ export const ButtonTitleEnum = {
   HEADING1: 'Heading 1',
   HEADING2: 'Heading 2',
   BOLD: 'Bold',
-  ITALIC: 'Italic 2',
+  ITALIC: 'Italic',
   UNDERLINED: 'Underlined',
   BULLET: 'Bullet',
   NUMBERING: 'Numbering',
@@ -10,10 +10,10 @@ export const ButtonTitleEnum = {
   ALIGN_LEFT: 'Align Left',
   ALIGN_RIGHT: 'Align Right',
   ALIGN_CENTER: 'Align Center',
-  INSERT_LINK: 'Insert hyperlink',
-  TABLE: 'Show table options',
-  INSERT_IMAGE: 'Insert inline image',
+  INSERT_LINK: 'Insert Hyperlink',
+  TABLE: 'Show Table Options',
+  INSERT_IMAGE: 'Insert Inline Image',
   STRIKE_THROUGH: 'Strike Through',
   FORMULA: 'Formula',
-  CLEAR_FORMAT: 'Remove formatting'
+  CLEAR_FORMAT: 'Remove Formatting'
 };

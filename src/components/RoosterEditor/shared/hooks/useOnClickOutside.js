@@ -8,10 +8,10 @@ export default function useOnClickOutside(ref, initialIsVisible, disabled, callb
       return;
     }
     if (!ref.current.contains(e.target)) {
-      setClickedOutside(true);
       if (callback) {
         callback();
       }
+      setClickedOutside(true);
     }
 
   }, [callback, disabled, ref]);

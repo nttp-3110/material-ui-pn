@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import startCase from 'lodash/startCase';
+import isEmpty from 'lodash/isEmpty';
 
 import { withStyles } from '@material-ui/core/styles';
 import RibbonButton from './RibbonButton';
@@ -69,7 +70,7 @@ class Ribbon extends React.Component {
       bullet, numbering, blockQuote,
       clearFormat,
       ...otherBtn
-    } = Object.assign(ribbonButtons, customButtons);
+    } = Object.assign({ ...ribbonButtons }, { ...customButtons });
     const buttons = [
       { heading1, heading2 },
       { bold, italic, underline, strikethrough },
@@ -95,6 +96,7 @@ class Ribbon extends React.Component {
                       plugin={plugin}
                       format={format}
                       onClicked={this.onButtonClicked}
+                      title={'Alignment'}
                       {...rest}
                     />
                   );
@@ -114,7 +116,7 @@ class Ribbon extends React.Component {
             </>
           );
         })}
-        <span className={classes.textButton}>
+        {!isEmpty(otherBtn) && <span className={classes.textButton}>
           <OtherOptions
             IconButton={RibbonIcons.IcnMore}
             buttons={otherBtn}
@@ -123,7 +125,7 @@ class Ribbon extends React.Component {
             onClicked={this.onButtonClicked}
             {...rest}
           />
-        </span>
+        </span>}
       </div>
     );
   }

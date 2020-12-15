@@ -1,6 +1,5 @@
 const styles = theme => ({
-    editor: {
-        // borderTop: `solid 1px ${theme.openColors.gray[2]}`,
+    editor: props => ({
         overflow: 'auto',
         padding: '10px',
         outline: 'none',
@@ -9,6 +8,7 @@ const styles = theme => ({
         top: 0,
         right: 0,
         bottom: 0,
+
         '& .katex-wrapper': {
             '& .placeholder': {
                 display: 'inline-block',
@@ -44,7 +44,7 @@ const styles = theme => ({
             //     display: 'inline'
             // }
         }
-    },
+    }),
     placeholder: {
         padding: '10px'
     },

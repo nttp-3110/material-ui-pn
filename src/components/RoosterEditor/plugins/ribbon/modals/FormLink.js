@@ -38,6 +38,7 @@ class InsertLink extends React.PureComponent {
   }
 
   onOk = () => {
+    console.log(this.props.editor, this.txtUrl.value, null, this.txtDisplayText.value);
     this.props.onDismiss();
     createLink(this.props.editor, this.txtUrl.value, null, this.txtDisplayText.value);
   };
@@ -45,7 +46,7 @@ class InsertLink extends React.PureComponent {
 
 const FormLink = withStyles(styles)(InsertLink);
 
-export default function renderInsertLinkDialog(editor, onDismiss) {
+export default function renderInsertLinkDialog(editor, onDismiss, ...rest) {
   let a = editor?.getElementAtCursor('a[href]');
   return (
     <FormLink
