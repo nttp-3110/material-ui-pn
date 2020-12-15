@@ -91,7 +91,7 @@ function MultiValue(props) {
   // const valueContainerElement = document.getElementById('value-container');
   // const valueContainerWidth = valueContainerElement.offsetWidth;
   return (
-    <Box ml={props.index === 0 ? 0 : 0.5}>
+    <Box ml={props.index === 0 ? 0 : 0.5} maxWidth='100%'>
       <Chip
         tabIndex={-1}
         label={props.children}

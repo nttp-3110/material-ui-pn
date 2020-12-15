@@ -104,6 +104,8 @@ const useStyles = makeStyles((theme) => ({
   },
   selectedTick: {
     marginLeft: theme.spacing(2),
+    height: theme.spacing(3),
+    lineHeight: '24px',
     '&:before': {
       fontFamily: 'icomoon',
       color: theme.palette.secondary.main,

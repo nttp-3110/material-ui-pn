@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     borderRadius: theme.spacing(0.5),
     // width: theme.spacing(9.25),
+    maxWidth: '100%',
     height: theme.spacing(3.5)
   },
   menuItem: {
@@ -70,6 +71,9 @@ const useStyles = makeStyles((theme) => ({
     '& .Mui-selected': {
       color: '#1A7AE6',
       backgroundColor: '#EBF1F9',
+      '&:hover': {
+        backgroundColor: theme.openColors.gray[1]
+      }
       // padding: theme.spacing(1.25, 2, 1.25, 1),
     },
     '& .selected-tick': {
