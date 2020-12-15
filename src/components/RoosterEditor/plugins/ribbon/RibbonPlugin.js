@@ -21,10 +21,13 @@ export default class RibbonPlugin {
 
   refCallback = (ref) => {
     this.ribbon = ref;
+    if (ref) {
+      ref.forceUpdate();
+    }
   };
 
   onPluginEvent(event) {
-    const { onClickInside, onChange } = this.ribbon.props;
+    const { onClickInside, onChange } = this.ribbon?.props || {};
     if (
       this.ribbon &&
       (event.eventType === PluginEventType.KeyUp ||

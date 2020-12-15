@@ -66,10 +66,6 @@ class RibbonButton extends React.PureComponent {
 
   renderDropDownItems(items, renderer) {
     const { classes } = this.props;
-    if (!this.props.plugin.getEditor()) {
-      // this.props.plugin.in
-      return;
-    }
     return (
       <div className={classes.dropDown}>
         {Object.keys(items).map(key =>
