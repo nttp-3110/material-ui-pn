@@ -56,7 +56,6 @@ class RoosterEditor extends React.Component {
   onBlur = () => {
     this.timeoutId = setTimeout(() => {
       this.isFocus = false;
-      console.log('blur');
       if (this.props.onBlur) {
         this.props.onBlur();
       }
@@ -75,7 +74,6 @@ class RoosterEditor extends React.Component {
   }
 
   getEditor = () => {
-    console.log('gêtdo', this.editorRef.current.editor);
     return this.editorRef.current.editor;
   };
 

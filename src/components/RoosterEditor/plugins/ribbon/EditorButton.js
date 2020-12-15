@@ -1,8 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Tooltip from '@material-ui/core/Tooltip';
+import { ReactComponent as IcnMore } from './images/icn_more.svg';
+
 const styles = theme => ({
   root: {
     position: 'relative',
@@ -11,7 +15,6 @@ const styles = theme => ({
   rootDisabled: {
     opacity: '0.4'
   },
-
   button: {
     borderWidth: 0,
     borderRadius: 8,
@@ -64,12 +67,14 @@ const styles = theme => ({
   },
 
 });
+
 const useStylesTooltip = makeStyles((theme) => ({
   arrow: {
     color: theme.palette.common.black,
   },
   tooltip: {
     backgroundColor: theme.palette.common.black,
+    fontSize: '12px'
   },
 }));
 
@@ -78,24 +83,39 @@ function CustomTooltip(props) {
 
   return <Tooltip arrow classes={classes} {...props} />;
 }
-class EditorButton extends React.Component {
-  render() {
-    const { classes, handleClick, checked, disabled, svgIconComponent, title } = this.props;
-
-    return (
-      <span className={`${classes.root} ${disabled ? classes.rootDisabled : ''}`}>
-        <CustomTooltip title={title || ''}>
-          <button
-            onClick={handleClick}
-            className={clsx(classes.button, { [classes.btnChecked]: checked, [classes.btnNormal]: !disabled && !checked, [classes.btnDisabled]: disabled })}>
-            <SvgIcon component={svgIconComponent}
-              className={clsx(classes.svgIcon, { [classes.iconChecked]: checked })}
-            ></SvgIcon>
-          </button>
-        </CustomTooltip>
-
-      </span>
-    );
-  }
-}
+const EditorButton = ({ classes, className, handleClick, checked, disabled, svgIconComponent, title, ...rest }) => {
+  return (
+    <span className={clsx(classes.root, className, { [classes.rootDisabled]: disabled })}>
+      <CustomTooltip title={title || ''}>
+        <button
+          onClick={handleClick}
+          className={clsx(classes.button, { [classes.btnChecked]: checked, [classes.btnNormal]: !disabled && !checked, [classes.btnDisabled]: disabled })}
+          {...rest}
+        >
+          <SvgIcon component={svgIconComponent}
+            className={clsx(classes.svgIcon, { [classes.iconChecked]: checked })}
+          ></SvgIcon>
+        </button>
+      </CustomTooltip>
+    </span>
+  );
+};
+EditorButton.propTypes = {
+  classes: PropTypes.object,
+  className: PropTypes.any,
+  handleClick: PropTypes.func,
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  svgIconComponent: PropTypes.any,
+  title: PropTypes.string
+};
+EditorButton.defaultProps = {
+  classes: {},
+  className: '',
+  handleClick: () => { },
+  checked: false,
+  disabled: false,
+  svgIconComponent: IcnMore,
+  title: ''
+};
 export default withStyles(styles)(EditorButton);
