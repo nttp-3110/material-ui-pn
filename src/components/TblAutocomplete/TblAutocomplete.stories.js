@@ -131,7 +131,6 @@ const AutocompleteTemplate = (args) => (
       getOptionLabel={(option) => option.title}
       renderOption={(option, { selected }) => (<Option option={option.title} selected={selected} />)}
       disableClearable={false}
-      fullWidth
       {...args}
     />
   </ThemeContainer>
@@ -141,5 +140,6 @@ export const SingleSelect = AutocompleteTemplate.bind({});
 
 SingleSelect.args = {
   label: 'No Default Option',
-  placeholder: 'Please Select...'
+  placeholder: 'Please Select...',
+  open: true
 };

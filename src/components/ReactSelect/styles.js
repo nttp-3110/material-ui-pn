@@ -30,21 +30,23 @@ const useStyles = makeStyles((theme) => ({
     },
     '& .css-1hb7zxy-IndicatorsContainer': {
       padding: theme.spacing(1.25)
+    },
+    '& .css-4ljt47-MenuList': {
+      padding: theme.spacing(1, 0),
+      boxShadow: '0px 8px 32px rgba(33, 37, 41, 0.16)',
+      borderRadius: theme.spacing(1)
     }
   },
   valueContainer: {
     marginLeft: theme.spacing(1),
     display: 'flex',
     maxWidth: 'calc(100% - 84px)',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    '& .css-1uccc91-singleValue': {
+      width: 'calc(100% - 40px)',
+    }
   },
   paper: {
-    // position: 'absolute',
-    // zIndex: 1,
-    // marginTop: theme.spacing.unit,
-    // left: 0,
-    // right: 0,
-    // maxHeight: 'unset'
     maxWidth: theme.spacing(63.25),
     marginTop: theme.spacing(0.75)
   },
@@ -66,7 +68,34 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1.25, 0, 1.25, 1),
     },
     '& .Mui-selected': {
-      backgroundColor: '#EBF1F9'
+      color: '#1A7AE6',
+      backgroundColor: '#EBF1F9',
+      // padding: theme.spacing(1.25, 2, 1.25, 1),
+    },
+    '& .selected-tick': {
+      marginLeft: theme.spacing(2),
+      height: '24px',
+      lineHeight: '24px',
+      '&:before': {
+        fontFamily: 'icomoon',
+        color: theme.palette.secondary.main,
+        content: '"\\e929"',
+        fontSize: theme.fontSizeIcon.medium
+      }
+    }
+  },
+  singleSelect: {
+    '& .MuiMenuItem-root': {
+      padding: theme.spacing(1.25, 2, 1.25, 1),
+      display: 'flex',
+      justifyContent: 'space-between',
+      '-webkit-line-clamp': 4,
+      '-webkit-box-orient': 'vertical',
+    },
+    '& .option-content': {
+      width: `calc(100% - ${theme.spacing(5)}px)`,
+      fontSize: '16px',
+      whiteSpace: 'normal'
     }
   },
   expandIcon: {
@@ -86,8 +115,10 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiCheckbox-root': {
       padding: 0
     },
-    '& .MuiCheckbox-colorPrimary':{
-
+    '& .MuiCheckbox-colorPrimary': {
+      '&.Mui-checked': {
+        color: '#1A7AE6',
+      }
     }
   }
 }));

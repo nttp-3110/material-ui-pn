@@ -35,7 +35,7 @@ const ReactSelectTemplate = (args) => (
 export const MultiSelect = ReactSelectTemplate.bind({});
 
 MultiSelect.args = {
-  label: 'Label - Fixed Width',
+  label: 'Label - Fixed Width Multiple',
   placeholder: 'Please select...',
   isMulti: true,
   menuIsOpen: true,
@@ -43,3 +43,15 @@ MultiSelect.args = {
   hideSelectedOptions: false,
   isSearchable: false
 };
+
+export const SingleSelect = ReactSelectTemplate.bind({});
+
+SingleSelect.args = {
+  label: 'Label - Fixed Width Single',
+  placeholder: 'Please select...',
+  menuIsOpen: true,
+  isClearable: false,
+  hideSelectedOptions: false,
+  isSearchable: false
+};
+

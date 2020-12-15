@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(0.75),
     borderRadius: theme.spacing(1),
     '& .MuiAutocomplete-listbox': {
-      overflow: 'visible',
+      // overflow: 'visible',
       '& .MuiAutocomplete-option': {
         '&:hover': {
           backgroundColor: theme.openColors.gray[1],

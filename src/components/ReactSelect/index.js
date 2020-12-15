@@ -50,22 +50,29 @@ function Menu(props) {
 }
 
 function Option(props) {
-  const { isSelected } = props;
+  const { isSelected, isMulti } = props;
   return (
-    <div className={props.selectProps.classes.menuItem}>
+    <div className={clsx(props.selectProps.classes.menuItem, {
+      [props.selectProps.classes.singleSelect]: !isMulti
+    })}>
       <MenuItem
-        selected={props.isSelected}
+        selected={isSelected}
         component='div'
         {...props.innerProps}
       >
-        <div className={props.selectProps.classes.checkbox}>
-          <Checkbox
-            color='primary'
-            checked={isSelected}
-            size='small'
-          />
-        </div>
-        {props.children}
+        {isMulti &&
+          <div className={props.selectProps.classes.checkbox}>
+            <Checkbox
+              color='primary'
+              checked={isSelected}
+              size='small'
+            />
+          </div>
+        }
+        <div className='option-content'>{props.children}</div>
+        {!isMulti && isSelected &&
+          <div className='selected-tick'></div>
+        }
       </MenuItem>
     </div>
   );
@@ -120,7 +127,6 @@ function ReactSelect(props) {
         classes={classes}
         components={components}
         closeMenuOnSelect={false}
-        cropWithEllipsis
         {...rest}
       />
     </div>
