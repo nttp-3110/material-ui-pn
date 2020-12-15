@@ -148,6 +148,7 @@ class RibbonButton extends React.Component {
     return (
       <span ref={this.ref} className={`${classes.dropDownButton} ${disabled ? classes.dropDownButtonDisabled : ''}`}>
         <EditorButton
+          title={button.title}
           checked={checked}
           disabled={disabled}
           svgIconComponent={button.image}

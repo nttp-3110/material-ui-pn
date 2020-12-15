@@ -14,6 +14,7 @@ const styles = theme => ({
     borderRadius: '8px',
     borderColor: theme.openColors.gray[2],
     background: theme.openColors.gray[0],
+    transition: 'all 200ms ease-in-out',
     '&.focus-content': {
       borderColor: theme.mainColors.primary2[0],
       outline: 'none',

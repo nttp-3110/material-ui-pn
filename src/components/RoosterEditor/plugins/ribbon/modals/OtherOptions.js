@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function OtherOptions({ buttons, IconButton, plugin, format, onClicked, disabled, ...rest }) {
+export default function OtherOptions({ buttons, IconButton, plugin, format, onClicked, disabled, title, ...rest }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -73,6 +73,7 @@ export default function OtherOptions({ buttons, IconButton, plugin, format, onCl
       className={`${classes.root} ${open ? 'editor-selected' : ''} ${disabled ? classes.rootDisabled : classes.rootNormal}`}
       onClick={handleToggle}>
       <EditorButton
+        title={title}
         disabled={disabled}
         svgIconComponent={IconButton}
       />

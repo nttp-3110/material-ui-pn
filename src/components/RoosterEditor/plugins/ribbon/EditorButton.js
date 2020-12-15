@@ -1,7 +1,8 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Tooltip from '@material-ui/core/Tooltip';
 const styles = theme => ({
   root: {
     position: 'relative',
@@ -50,6 +51,8 @@ const styles = theme => ({
   },
   svgIcon: {
     fontSize: 20,
+    height: 20,
+    width: 20,
     '& path': {
       fill: theme.openColors.gray[8]
     }
@@ -61,20 +64,36 @@ const styles = theme => ({
   },
 
 });
+const useStylesTooltip = makeStyles((theme) => ({
+  arrow: {
+    color: theme.palette.common.black,
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
 
+function CustomTooltip(props) {
+  const classes = useStylesTooltip();
+
+  return <Tooltip arrow classes={classes} {...props} />;
+}
 class EditorButton extends React.Component {
   render() {
-    const { classes, handleClick, checked, disabled, svgIconComponent } = this.props;
+    const { classes, handleClick, checked, disabled, svgIconComponent, title } = this.props;
 
     return (
       <span className={`${classes.root} ${disabled ? classes.rootDisabled : ''}`}>
-        <button
-          onClick={handleClick}
-          className={clsx(classes.button, { [classes.btnChecked]: checked, [classes.btnNormal]: !disabled && !checked, [classes.btnDisabled]: disabled })}>
-          <SvgIcon component={svgIconComponent}
-            className={clsx(classes.svgIcon, { [classes.iconChecked]: checked })}
-          ></SvgIcon>
-        </button>
+        <CustomTooltip title={title || ''}>
+          <button
+            onClick={handleClick}
+            className={clsx(classes.button, { [classes.btnChecked]: checked, [classes.btnNormal]: !disabled && !checked, [classes.btnDisabled]: disabled })}>
+            <SvgIcon component={svgIconComponent}
+              className={clsx(classes.svgIcon, { [classes.iconChecked]: checked })}
+            ></SvgIcon>
+          </button>
+        </CustomTooltip>
+
       </span>
     );
   }
