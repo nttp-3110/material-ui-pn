@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     '& .MuiMenuItem-root': {
-      padding: theme.spacing(1.25, 0, 1.25, 1),
+      padding: theme.spacing(1.25, 2, 1.25, 1),
     },
     '& .Mui-selected': {
       color: '#1A7AE6',
@@ -86,6 +86,9 @@ const useStyles = makeStyles((theme) => ({
         content: '"\\e929"',
         fontSize: theme.fontSizeIcon.medium
       }
+    },
+    '& .option-content': {
+      whiteSpace: 'normal',
     }
   },
   singleSelect: {

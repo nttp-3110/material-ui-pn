@@ -33,5 +33,6 @@ const SelectButtonTemplate = (args) => (
 export const SelectButtonExample = SelectButtonTemplate.bind({});
 
 SelectButtonExample.args = {
-  
+  defaultValue: 1,
+  open: true
 };

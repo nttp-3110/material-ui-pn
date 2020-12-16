@@ -7,24 +7,35 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(13.875),
       backgroundColor: '#1A7AE6',
       color: theme.openColors.white,
+      borderRadius: theme.spacing(1),
       '&:hover .MuiOutlinedInput-notchedOutline': {
         border: 'none'
       }
     },
     '& .MuiSelect-icon': {
       color: theme.openColors.white
+    },
+    '& .Mui-focused': {
+      '& .MuiOutlinedInput-notchedOutline': {
+        border: 'none'
+      },
+    },
+    '& .MuiSelect-select': {
+      '&:focus': {
+        backgroundColor: 'transparent'
+      }
     }
   },
   menuPaper: {
     width: theme.spacing(20),
-    marginTop: theme.spacing(0.5),
-    borderRadius: theme.spacing(0.5)
+    marginTop: theme.spacing(0.75),
+    borderRadius: theme.spacing(1),
+    boxShadow: '0px 8px 32px rgba(33, 37, 41, 0.16)',
   },
   menu: {
-    padding: theme.spacing(0.5, 0),
+    padding: theme.spacing(1, 0),
     overflowY: 'auto',
     listStyle: 'none',
-    // height: '100%',
     '& .MuiMenuItem-root': {
       width: '100%',
       whiteSpace: 'pre-line',
@@ -38,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
       '& .menu-content': {
         width: `calc(100% - ${theme.spacing(5)}px)`,
         fontSize: '16px',
-      } 
+      }
     },
     '& .MuiListItem-button:hover': {
       backgroundColor: theme.mainColors.gray[3]
