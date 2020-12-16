@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
-import InputSingleActions from '../Input/InputSingleActions';
+import InputSingleActions from './InputSingleActions';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import useWhyDidYouUpdate from '../hooks/useWhyDidYouUpdate';
 import useOnClickOutside from '../hooks/useOnClickOutside';
-import TextInput from '../Input/TextInput';
+import TextInput from '../InputFields/TextInput';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .focus-content': {

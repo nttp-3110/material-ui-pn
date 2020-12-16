@@ -7,8 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import styles from './styled';
 
-import TextInput from '../../../shared/Input/TextInput';
-import InputSingleActions from '../../../shared/Input/InputSingleActions';
+import TextInput from '../../../../InputFields/TextInput';
+import InputSingleActions from '../../../../InputComponent/InputSingleActions';
 
 class TableOptions extends React.PureComponent {
   onInsertTable = () => {

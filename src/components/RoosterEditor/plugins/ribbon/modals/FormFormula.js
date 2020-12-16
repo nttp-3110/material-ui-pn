@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
 import { EVENT_TYPE } from '../../mathjax';
-import TextInput from '../../../shared/Input/TextInput';
-import InputSingleActions from '../../../shared/Input/InputSingleActions';
+import TextInput from '../../../../InputFields/TextInput';
+import InputSingleActions from '../../../../InputComponent/InputSingleActions';
 import styles from './styled';
 class InsertFormula extends React.Component {
   state = {

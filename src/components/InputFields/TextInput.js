@@ -7,9 +7,9 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
-import useEventListener from './utils/useEventListener';
-import InputLabel from './InputLabel';
-import InputSingleActions from './InputSingleActions';
+import useEventListener from '../hooks/useEventListener';
+import InputLabel from '../InputComponent/InputLabel';
+import InputSingleActions from '../InputComponent/InputSingleActions';
 
 import useStyles from './styled';
 

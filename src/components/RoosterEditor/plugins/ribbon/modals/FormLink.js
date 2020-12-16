@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import { createLink } from 'roosterjs-editor-api';
 import { withStyles } from '@material-ui/core/styles';
 
-import TextInput from '../../../shared/Input/TextInput';
-import InputSingleActions from '../../../shared/Input/InputSingleActions';
+import TextInput from '../../../../InputFields/TextInput';
+import InputSingleActions from '../../../../InputComponent/InputSingleActions';
 import styles from './styled';
 
 class InsertLink extends React.PureComponent {

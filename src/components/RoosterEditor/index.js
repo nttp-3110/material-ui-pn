@@ -7,7 +7,7 @@ import { getDefaultContentEditFeatures } from 'roosterjs-editor-plugins';
 import Editor from './Editor';
 import Ribbon from './plugins/ribbon/Ribbon';
 
-import InputLabel from './shared/Input/InputLabel';
+import InputLabel from '../InputComponent/InputLabel';
 import PluginManage from './plugins/plugins';
 import styles from './styles';
 

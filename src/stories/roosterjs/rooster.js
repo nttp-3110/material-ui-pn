@@ -1,6 +1,6 @@
 import React from 'react';
 import RoosterReact from '../../components/RoosterEditor';
-import InputComponent from '../../components/RoosterEditor/shared/utils/InputComponent';
+import InputComponent from '../../components/InputComponent';
 
 import 'katex/dist/katex.min.css';
 
