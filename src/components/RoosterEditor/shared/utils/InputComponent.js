@@ -12,9 +12,18 @@ import useOnClickOutside from '../hooks/useOnClickOutside';
 import TextInput from '../Input/TextInput';
 const useStyles = makeStyles((theme) => ({
   root: {
+    '& .focus-content': {
+      '& .input-container': {
+        borderColor: theme.mainColors.primary2[0],
+        outline: 'none',
+        boxShadow: 'rgba(235,241,249,1) 0 0 0 3px'
+      },
+    },
     '& .has-error': {
-      borderColor: theme.palette.error.main
-    }
+      '& .input-container': {
+        borderColor: theme.palette.error.main
+      }
+    },
   }
 }));
 const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, ...rest }, ref) => {
@@ -71,10 +80,11 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
     <Component
       ref={inputRef}
       label={label}
-      className={clsx({ 'focus-content': !clickedOutside, 'has-error': error.hasError })}
+      // className={clsx({ 'focus-content': !clickedOutside, 'has-error': error.hasError })}
       disabled={disabled}
       onClickInside={onClickInside}
       onChange={(e) => {
+        console.log('onchange');
         if (onChange) {
           onChange(e, inputRef, error, setError);
         }
@@ -83,7 +93,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
 
     />
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [label, clickedOutside, disabled, error, rest]);
+  ), [error]);
 
   const actionMemo = React.useMemo(() => (
     <div ref={inputActionsRef} >
@@ -101,7 +111,10 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
 
   return (
     <div ref={inputContainerRef} className={classes.root} onClick={onClickInside}>
-      {contentMemo}
+      <div className={clsx({ 'focus-content': !clickedOutside, 'has-error': error.hasError })}>
+        {contentMemo}
+      </div>
+
       {actionMemo}
     </div >
   );

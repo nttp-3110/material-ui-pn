@@ -15,24 +15,24 @@ export const Rooster = ({ defaultValue, ...rest }) => {
 
       defaultValue={originValue}
       handleClickInside={() => {
-        const editor = ref.current.editor.getEditor();
+        const editor = ref.current.input.getEditor();
         if (editor) {
           editor.focus();
         }
       }}
       onSave={() => {
-        const content = ref.current.editor.getContent();
+        const content = ref.current.input.getContent();
         setContent(content);
         setOriginValue(content);
       }}
       onAbort={() => {
-        const editor = ref.current.editor.getEditor();
+        const editor = ref.current.input.getEditor();
         editor.setContent('');
         setContent('');
       }}
       {...rest}
     />
-    {!rest.autoSave && <button onClick={() => setContent(ref.current.editor.getContent())}>Show Content</button>}
+    {!rest.autoSave && <button onClick={() => setContent(ref.current.input.getContent())}>Show Content</button>}
     <div dangerouslySetInnerHTML={{ __html: content }} />
   </div >;
 };

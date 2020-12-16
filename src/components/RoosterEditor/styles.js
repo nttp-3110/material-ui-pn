@@ -14,12 +14,7 @@ const styles = theme => ({
     borderRadius: '8px',
     borderColor: theme.openColors.gray[2],
     background: theme.openColors.gray[0],
-    transition: 'all 200ms ease-in-out',
-    '&.focus-content': {
-      borderColor: theme.mainColors.primary2[0],
-      outline: 'none',
-      boxShadow: 'rgba(235,241,249,1) 0 0 0 3px'
-    }
+    transition: 'all 200ms ease-in-out'
   }),
 
   noGrow: {
@@ -39,8 +34,7 @@ const styles = theme => ({
     position: 'relative',
     height: 'auto !important',
     overflow: 'visible',
-    minHeight: props.height || '200px',
-
+    minHeight: props.height || '200px'
   })
 });
 export default styles;

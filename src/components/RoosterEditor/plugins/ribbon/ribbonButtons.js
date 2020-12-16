@@ -38,21 +38,13 @@ const buttons = {
       const level = format.headerLevel === 2 ? 0 : 2;
       toggleHeader(editor, level);
     },
-    checked: format => {
-      return format.headerLevel === 2;
-    },
+    checked: format => format.headerLevel === 2,
   },
   bold: {
     title: ButtonTitleEnum.BOLD,
     image: RibbonIcons.IcnFormatBold,
-    onClick: (editor) => {
-      toggleBold(editor);
-      console.log('bold', editor);
-    },
-    checked: format => {
-      console.log(format);
-      return format.isBold;
-    },
+    onClick: toggleBold,
+    checked: format => format.isBold,
   },
   italic: {
     title: ButtonTitleEnum.ITALIC,

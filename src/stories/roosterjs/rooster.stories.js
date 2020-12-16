@@ -18,7 +18,7 @@ const buttons = {
 };
 Default.args = {
   required: true,
-  autoSave: true,
+  autoSave: false,
   label: 'Editor',
   defaultValue: 'defaultValue',
   height: 200,

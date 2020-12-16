@@ -40,8 +40,7 @@ class RoosterEditor extends React.Component {
       linkTitle: 'Ctrl+Click to follow the link:' + UrlPlaceholder,
       watermarkText: 'Type content here ...',
       showRibbon: true,
-      useExperimentFeatures: true,
-      initialContent: 'initialContent'
+      useExperimentFeatures: true
     };
   }
 
@@ -99,11 +98,13 @@ class RoosterEditor extends React.Component {
     }
     return (
       <div className={classes.root} onBlur={this.onBlur} onFocus={this.onFocus}>
-        {label && <InputLabel
-          label={label}
-          required={required}
-        />}
-        <div className={`${classes.editorContainer} ${className} editor-container`}>
+        {label && <div className={'input-label'}>
+          <InputLabel
+            label={label}
+            required={required}
+          />
+        </div>}
+        <div className={`${classes.editorContainer} ${className} editor-container input-container`}>
           <Ribbon
             plugin={plugins.ribbon}
             className={classes.noGrow}
@@ -111,7 +112,7 @@ class RoosterEditor extends React.Component {
             disabled={disabled}
             {...rest}
           />
-          <div className={classes.body}>
+          <div className={`${classes.body}`}>
             <Editor
               plugins={pluginArray}
               className={classes.editor}

@@ -19,40 +19,40 @@ import MathJaxPlugin from './mathjax';
 //     api: ApiPlaygroundPlugin;
 // }
 export default class PluginManage {
-    constructor() {
-        this.plugins = null;
+  constructor() {
+    this.plugins = null;
+  }
+  dispose() {
+    this.plugins = null;
+  }
+  getPlugins() {
+    if (!this.plugins) {
+      this.plugins = {
+        ribbon: new RibbonPlugin(),
+        // katex: new KatexPlugin(),
+        mathjax: new MathJaxPlugin(),
+        // imageutils: new ImageUtils(),
+        // formatState: new FormatStatePlugin(),
+        // snapshot: new SnapshotPlugin(),
+        // editorOptions: new EditorOptionsPlugin(),
+        // eventView: new EventViewPlugin(),
+        // api: new ApiPlaygroundPlugin(),
+      };
     }
-    dispose() {
-        this.plugins = null;
-    }
-    getPlugins() {
-        if (!this.plugins) {
-            this.plugins = {
-                ribbon: new RibbonPlugin(),
-                // katex: new KatexPlugin(),
-                mathjax: new MathJaxPlugin(),
-                // imageutils: new ImageUtils(),
-                // formatState: new FormatStatePlugin(),
-                // snapshot: new SnapshotPlugin(),
-                // editorOptions: new EditorOptionsPlugin(),
-                // eventView: new EventViewPlugin(),
-                // api: new ApiPlaygroundPlugin(),
-            };
-        }
-        return this.plugins;
-    }
-    getAllPluginArray() {
-        let allPlugins = this.getPlugins();
-        return [
-            allPlugins.ribbon,
-            allPlugins.mathjax,
-            // allPlugins.formatState,
-            // allPlugins.editorOptions,
-            // allPlugins.snapshot,
-            // allPlugins.eventView,
-            // allPlugins.api,
-        ];
-    }
+    return this.plugins;
+  }
+  getAllPluginArray() {
+    let allPlugins = this.getPlugins();
+    return [
+      allPlugins.ribbon,
+      allPlugins.mathjax,
+      // allPlugins.formatState,
+      // allPlugins.editorOptions,
+      // allPlugins.snapshot,
+      // allPlugins.eventView,
+      // allPlugins.api,
+    ];
+  }
 }
 
 // let plugins = null;

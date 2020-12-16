@@ -39,7 +39,6 @@ class RibbonButton extends React.PureComponent {
     const { button, plugin } = this.props;
     const editor = plugin.getEditor();
     this.onHideDropDown();
-    console.log(value, 'excetite');
     this.props.onClicked();
     if (button.onClick) {
       button.onClick(editor, value);
