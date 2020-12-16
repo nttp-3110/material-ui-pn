@@ -46,10 +46,6 @@ class Ribbon extends React.Component {
     });
   };
 
-  // onPopOut = () => {
-  //     MainPaneBase.getInstance().popout();
-  // };
-
   onButtonClicked = () => {
     this.forceUpdate();
   };

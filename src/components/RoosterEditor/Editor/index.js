@@ -1,13 +1,7 @@
 import React from 'react';
-// import BuildInPluginState, { UrlPlaceholder } from '../BuildInPluginState';
-// import SampleColorPickerPluginDataProvider from '../samplepicker/SampleColorPickerPluginDataProvider';
-// import { EditorInstanceToggleablePlugins } from './EditorInstanceToggleablePlugins';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Editor as RoosterJsEditor,
-  // EditorOptions,
-  // EditorPlugin,
-  // UndoService,
+  Editor as RoosterJsEditor
 } from 'roosterjs-editor-core';
 
 import {
@@ -16,13 +10,12 @@ import {
   ContentEdit,
   Watermark,
   TableResize,
-  // ContentEditFeatures,
   getDefaultContentEditFeatures,
   CustomReplace as CustomReplacePlugin,
   EntityPlugin,
-  ImageResize,
-  // PickerPlugin,
+  ImageResize
 } from 'roosterjs-editor-plugins';
+
 import styles from './styles';
 const assign = require('object-assign');
 export const UrlPlaceholder = '$url$';
@@ -72,7 +65,8 @@ class Editor extends React.Component {
 
   initEditor() {
     const { disabled } = this.props;
-    let pluginList = this.state.pluginList;
+    const { pluginList } = this.state;
+
     editorInstanceToggleablePlugins = {
       hyperlink: pluginList.hyperlink ? new HyperLink(this.getLinkCallback()) : null,
       paste: pluginList.paste ? new Paste() : null,
@@ -140,7 +134,7 @@ class Editor extends React.Component {
 
   getContentEditOptions() {
     let defaultFeatures = getDefaultContentEditFeatures();
-    return assign(defaultFeatures, this.state.contentEditFeatures);
+    return Object.assign(defaultFeatures, this.state.contentEditFeatures);
   }
 
   render() {

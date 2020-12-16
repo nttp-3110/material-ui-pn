@@ -21,10 +21,13 @@ export default class RibbonPlugin {
 
   refCallback = (ref) => {
     this.ribbon = ref;
+    if (ref) {
+      ref.forceUpdate();
+    }
   };
 
   onPluginEvent(event) {
-    console.log(this.ribbon);
+    const { onClickInside, onChange } = this.ribbon?.props || {};
     if (
       this.ribbon &&
       (event.eventType === PluginEventType.KeyUp ||
@@ -32,6 +35,13 @@ export default class RibbonPlugin {
         event.eventType === PluginEventType.ContentChanged)
     ) {
       this.ribbon.forceUpdate();
+      if (this.getEditor()?.hasFocus() && onClickInside) {
+        onClickInside(event);
+        if (onChange && (event.eventType === PluginEventType.KeyUp || event.eventType === PluginEventType.ContentChanged)) {
+          onChange(event);
+        }
+      }
+
     }
   }
 }

@@ -7,7 +7,7 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import RibbonButton from '../RibbonButton';
 import EditorButton from '../EditorButton';
-
+import styles from './styled';
 const useStyles = makeStyles((theme) => ({
   root: {
   },
@@ -15,6 +15,22 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     '&:focus, & .MuiPaper-root:focus, & .MuiList-root:focus': {
       outline: 'none'
+    },
+    '& .MuiPaper-root': {
+      // display: 'inline-block',
+      // backgroundColor: 'white',
+      padding: theme.spacing(1, 0.5),
+      // position: 'absolute',
+      // top: 0,
+      // left: 0,
+      border: '1px solid #E9ECEF',
+      boxSizing: 'border-box',
+      boxShadow: '0px 8px 32px rgba(33, 37, 41, 0.16)',
+      borderRadius: theme.spacing(1),
+    },
+    '& .MuiList-padding': {
+      paddingTop: 0,
+      paddingBottom: 0,
     }
 
   },

@@ -1,5 +1,7 @@
 import React, { useRef, useCallback, useState, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
+
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
 import InputSingleActions from '../Input/InputSingleActions';
@@ -10,6 +12,9 @@ import useOnClickOutside from '../hooks/useOnClickOutside';
 import TextInput from '../Input/TextInput';
 const useStyles = makeStyles((theme) => ({
   root: {
+    '& .has-error': {
+      borderColor: theme.palette.error.main
+    }
   }
 }));
 const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, ...rest }, ref) => {
@@ -23,7 +28,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
 
   const handleSave = useCallback(e => {
     if (onSave && autoSave) {
-      onSave(e, inputRef);
+      onSave(e, inputRef, setError);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -33,7 +38,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
 
   const handleCancel = useCallback(e => {
     if (onAbort && autoSave) {
-      onAbort(e, inputRef);
+      onAbort(e, inputRef, setError);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,7 +54,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
     if (!clickedOutside && !disabled) {
       addEventListener();
       if (handleClickInside) {
-        handleClickInside(inputRef, setError);
+        handleClickInside(inputRef);
       }
     } else {
       removeEventListener();
@@ -58,25 +63,27 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
   }, [clickedOutside, disabled, inputRef, handleClickInside]);
 
   useImperativeHandle(ref, () => ({
-    editor: inputRef.current
+    input: inputRef.current,
+    setError
   }));
 
   const contentMemo = React.useMemo(() => (
     <Component
       ref={inputRef}
       label={label}
-      className={!clickedOutside ? 'focus-content' : ''}
+      className={clsx({ 'focus-content': !clickedOutside, 'has-error': error.hasError })}
       disabled={disabled}
-      onChange={() => {
+      onClickInside={onClickInside}
+      onChange={(e) => {
         if (onChange) {
-          onChange(inputRef);
+          onChange(e, inputRef, error, setError);
         }
       }}
       {...rest}
 
     />
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [clickedOutside, disabled, label, rest, inputRef]);
+  ), [label, clickedOutside, disabled, error, rest]);
 
   const actionMemo = React.useMemo(() => (
     <div ref={inputActionsRef} >
@@ -90,7 +97,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
       />
     </div>
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [clickedOutside, disabled, error]);
+  ), [autoSave, clickedOutside, disabled, error]);
 
   return (
     <div ref={inputContainerRef} className={classes.root} onClick={onClickInside}>

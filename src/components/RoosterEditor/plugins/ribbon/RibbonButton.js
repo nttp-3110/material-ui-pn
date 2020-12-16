@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import upperCase from 'lodash/upperCase';
+
 import { withStyles } from '@material-ui/core/styles';
 import { Browser } from 'roosterjs-editor-dom';
 import styles from './RibbonStyles';
 import { ButtonTitleEnum } from './constants';
 import EditorButton from './EditorButton';
-class RibbonButton extends React.Component {
+class RibbonButton extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -12,19 +15,12 @@ class RibbonButton extends React.Component {
       isDropDownShown: false,
     };
     this.range = null;
-    this.textAlign = '';
     this.ref = React.createRef();
-  }
-  componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   handleClickOutside = (e) => {
     if (!this.ref.current.contains(e.target)) {
-      this.setState({ isDropDownShown: false });
+      this.setState({ isDropDownShown: false }, () => document.removeEventListener('mousedown', this.handleClickOutside));
     }
   }
 
@@ -32,20 +28,10 @@ class RibbonButton extends React.Component {
     const { button, plugin } = this.props;
     const editor = plugin.getEditor();
     if (!editor) {
-      return false;
+      return button.title === ButtonTitleEnum.ALIGN_LEFT;
     }
-    const styleTextAlign = editor.getBlockTraverser()?.scoper?.block?.element?.style?.textAlign || '';
-    let textAlign = '';
-    switch (styleTextAlign) {
-      case 'right':
-        textAlign = ButtonTitleEnum.ALIGN_RIGHT;
-        break;
-      case 'center':
-        textAlign = ButtonTitleEnum.ALIGN_CENTER;
-        break;
-      default:
-        textAlign = ButtonTitleEnum.ALIGN_LEFT;
-    }
+    const styleTextAlign = editor.getBlockTraverser()?.scoper?.block?.element?.style?.textAlign || 'left';
+    const textAlign = ButtonTitleEnum[`ALIGN_${upperCase(styleTextAlign)}`];
     return button.title === textAlign;
   }
 
@@ -55,9 +41,7 @@ class RibbonButton extends React.Component {
     this.onHideDropDown();
     if (button.onClick) {
       button.onClick(editor, value);
-      // MainPaneBase.getInstance().updateFormatState();
     }
-
     this.props.onClicked();
   };
 
@@ -69,20 +53,15 @@ class RibbonButton extends React.Component {
     if (!this.props.button.preserveOnClickAway) {
       this.getDocument().addEventListener('click', this.onHideDropDown);
     }
-    this.setState({
-      isDropDownShown: true,
-    });
+    this.setState({ isDropDownShown: true });
   };
 
   onHideDropDown = () => {
     if (Browser.isSafari) {
       this.props.plugin.getEditor().select(this.range);
     }
-
     this.getDocument().removeEventListener('click', this.onHideDropDown);
-    this.setState({
-      isDropDownShown: false,
-    });
+    this.setState({ isDropDownShown: false });
   };
 
   renderDropDownItems(items, renderer) {
@@ -124,6 +103,7 @@ class RibbonButton extends React.Component {
       return;
     }
     if (button.dropDownItems) {
+      document.addEventListener('mousedown', this.handleClickOutside);
       this.onShowDropDown();
     } else {
       this.onExecute();
@@ -131,16 +111,9 @@ class RibbonButton extends React.Component {
   }
 
   render() {
-    const { classes, disabled, button, plugin, ...rest } = this.props;
+    const { classes, disabled, button, plugin, format, ...rest } = this.props;
     const editor = plugin.getEditor();
-    let checked = false;
-    if (editor &&
-      this.props.format &&
-      button.checked &&
-      button.checked(this.props.format, editor)
-    ) {
-      checked = true;
-    }
+    let checked = !!(editor && format && button.checked && button.checked(format, editor));
     if ([ButtonTitleEnum.ALIGN_LEFT, ButtonTitleEnum.ALIGN_CENTER, ButtonTitleEnum.ALIGN_RIGHT].includes(button.title)) {
       checked = this.checkAlignment(button.title);
     }
@@ -153,6 +126,7 @@ class RibbonButton extends React.Component {
           disabled={disabled}
           svgIconComponent={button.image}
           handleClick={this.handleClick}
+          {...rest}
         />
         {button.dropDownItems &&
           this.state.isDropDownShown &&
@@ -161,4 +135,12 @@ class RibbonButton extends React.Component {
     );
   }
 }
+RibbonButton.propTypes = {
+  classes: PropTypes.object,
+  button: PropTypes.object,
+  plugin: PropTypes.object,
+  format: PropTypes.object,
+  disabled: PropTypes.bool,
+  onClicked: PropTypes.func
+};
 export default withStyles(styles)(React.forwardRef((props, ref) => <RibbonButton {...props} ref={ref} />));
