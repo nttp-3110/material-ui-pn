@@ -38,7 +38,7 @@ export default class RibbonPlugin {
       if (this.getEditor()?.hasFocus() && onClickInside) {
         onClickInside(event);
         if (onChange && (event.eventType === PluginEventType.KeyUp || event.eventType === PluginEventType.ContentChanged)) {
-          onChange(event);
+          // onChange(event);
         }
       }
 

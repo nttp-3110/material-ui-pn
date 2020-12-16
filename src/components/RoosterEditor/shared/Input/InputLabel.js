@@ -27,7 +27,7 @@ class InputLabel extends React.Component {
   render() {
     const { classes, label, required, ...rest } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} {...rest}>
         <div className={classes.editorLabel}>
           <label >{label}</label>
         </div>

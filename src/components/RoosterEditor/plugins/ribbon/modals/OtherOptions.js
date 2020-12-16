@@ -7,7 +7,6 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import RibbonButton from '../RibbonButton';
 import EditorButton from '../EditorButton';
-import styles from './styled';
 const useStyles = makeStyles((theme) => ({
   root: {
   },

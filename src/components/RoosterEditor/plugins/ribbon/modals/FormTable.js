@@ -1,13 +1,7 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button'
-// import { Editor } from 'roosterjs-editor-core';
-import { editTable, formatTable, insertTable } from 'roosterjs-editor-api';
-// import { TableOperation } from 'roosterjs-editor-types';
+import PropTypes from 'prop-types';
+
+import { insertTable } from 'roosterjs-editor-api';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -51,6 +45,14 @@ class TableOptions extends React.PureComponent {
     );
   }
 }
+TableOptions.propTypes = {
+  classes: PropTypes.object,
+  editor: PropTypes.object,
+  onDismiss: PropTypes.func
+};
+TableOptions.defaultProps = {
+
+};
 const FormTable = withStyles(styles)(TableOptions);
 
 export default function renderTableOptions(editor, onDismiss) {

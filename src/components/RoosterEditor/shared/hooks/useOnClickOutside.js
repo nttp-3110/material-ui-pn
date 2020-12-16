@@ -1,5 +1,5 @@
 
-import { useEffect, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export default function useOnClickOutside(ref, initialIsVisible, disabled, callback) {
   const [clickedOutside, setClickedOutside] = useState(initialIsVisible);
@@ -18,11 +18,6 @@ export default function useOnClickOutside(ref, initialIsVisible, disabled, callb
 
   const addEventListener = () => document.addEventListener('mousedown', handleClickOutside);
   const removeEventListener = () => document.removeEventListener('mousedown', handleClickOutside);
-
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // });
 
   return { clickedOutside, setClickedOutside, addEventListener, removeEventListener };
 }

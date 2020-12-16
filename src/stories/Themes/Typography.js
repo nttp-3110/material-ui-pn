@@ -27,14 +27,14 @@ const headingTitle = () => {
     </Grid>
   );
 };
-const FontSizeComponent = ({ }) => {
+const FontSizeComponent = () => {
   return (
     <div>
       {headingTitle()}
       {Object.keys(fontSize).map(fontsizeKey => {
         const scale = fontSize[`${fontsizeKey}`];
         return (
-           <Grid container spacing={1}>
+          <Grid container spacing={1}>
             <Grid item xs={2}>
               {fontsizeKey}
             </Grid>
@@ -43,7 +43,7 @@ const FontSizeComponent = ({ }) => {
             </Grid>
             <Grid item xs={8} className='text-ellipsis'>
               <Box color={mainColors.primary[0]} fontSize={scale} m={2}>
-              Nulla nisi mollit velit elit proident et.
+                Nulla nisi mollit velit elit proident et.
             </Box>
             </Grid>
           </Grid>
