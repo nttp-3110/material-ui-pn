@@ -35,7 +35,7 @@ export const PnTextInput = ({
     const containerElement = inputContainerEl.current;
     let targetElement = event.target; // clicked element
     do {
-      if(targetElement.parentNode?.className?.includes('action')) {
+      if (targetElement.parentNode?.className?.includes('action')) {
         return;
       }
       if (targetElement === containerElement) {
@@ -54,6 +54,7 @@ export const PnTextInput = ({
   }, [value, defaultValue, autoSave, currentEl]);
 
   const handleChange = useCallback((e) => {
+    console.log(inputRef.current);
     setValue(e.target.value);
     if (!open && autoSave) {
       setOpen(true);
@@ -132,7 +133,7 @@ export const PnTextInput = ({
               {InputProps?.endAdornment}
               {error && <ErrorOutlineIcon className={`${classes.hasError}`} />}
             </InputAdornment>,
-           
+
           }}
         />
       </div>
@@ -140,7 +141,7 @@ export const PnTextInput = ({
         {error && <div className={clsx({ [classes.hasOpen]: open, [classes.hasError]: error })}> {errorMessage} </div>}
         {open && <div className={`${classes.actions} flyout-buttons`}>
           <div className={`${classes.actionBtn} ${classes.clearIcon} action`} onClick={handleCancel}><ClearIcon className={classes.icon} /></div>
-          <div className={`${classes.actionBtn} ${classes.doneIcon} action`} onClick={() => handleSave(value)}><DoneIcon className={classes.icon}  /></div>
+          <div className={`${classes.actionBtn} ${classes.doneIcon} action`} onClick={() => handleSave(value)}><DoneIcon className={classes.icon} /></div>
         </div>
         }
       </div>

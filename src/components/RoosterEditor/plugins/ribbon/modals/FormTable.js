@@ -15,6 +15,7 @@ class TableOptions extends React.PureComponent {
     this.props.onDismiss();
     const rows = this.columnsRef.value;
     const cols = this.rowsRef.value;
+    console.log(this.columnsRef);
     if (cols > 0 && rows > 0) {
       insertTable(this.props.editor, cols, rows);
     }

@@ -1,14 +1,13 @@
 import React from 'react';
 
 import { Page } from '.';
-// import * as HeaderStories from '../../components/Header/Header.stories';
-
+import ThemeContainer from '../../themes/ThemeContainer';
 export default {
   title: 'Example/Form',
   component: Page,
 };
 
-const Template = (args) => <Page {...args} />;
+const Template = (args) => <ThemeContainer><Page {...args} /></ThemeContainer>;
 
 export const TextField = Template.bind({});
 TextField.args = {

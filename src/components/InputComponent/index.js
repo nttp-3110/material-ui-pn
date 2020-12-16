@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }
 }));
-const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, ...rest }, ref) => {
+const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, defaultValue, ...rest }, ref) => {
 
   const classes = useStyles();
   const inputRef = React.useRef();
@@ -43,7 +43,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
   }, []);
   const { clickedOutside, setClickedOutside, addEventListener, removeEventListener } = useOnClickOutside(inputContainerRef, true, disabled || !autoSave, handleSave);
 
-  useWhyDidYouUpdate('Re', { Component, label, onSave, onAbort, onChange, handleClickInside, disabled, rest, inputRef, classes, inputActionsRef, inputContainerRef, error, clickedOutside });
+  useWhyDidYouUpdate('InputComponent', { Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, defaultValue, rest });
 
   const handleCancel = useCallback(e => {
     if (onAbort && autoSave) {
@@ -72,7 +72,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
   }, [clickedOutside, disabled, inputRef, handleClickInside]);
 
   useImperativeHandle(ref, () => ({
-    input: inputRef.current,
+    inputField: inputRef.current,
     setError
   }));
 
@@ -80,11 +80,11 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
     <Component
       ref={inputRef}
       label={label}
-      // className={clsx({ 'focus-content': !clickedOutside, 'has-error': error.hasError })}
       disabled={disabled}
       onClickInside={onClickInside}
+      defaultValue={defaultValue}
       onChange={(e) => {
-        console.log('onchange');
+        // console.log(inputRef, 'inputRef');
         if (onChange) {
           onChange(e, inputRef, error, setError);
         }
@@ -93,7 +93,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
 
     />
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [error]);
+  ), [error, defaultValue]);
 
   const actionMemo = React.useMemo(() => (
     <div ref={inputActionsRef} >
