@@ -17,7 +17,6 @@ import {
 } from 'roosterjs-editor-plugins';
 
 import styles from './styles';
-const assign = require('object-assign');
 export const UrlPlaceholder = '$url$';
 
 // let editorInstance = null;

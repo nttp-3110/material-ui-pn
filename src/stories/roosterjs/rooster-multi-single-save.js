@@ -1,7 +1,6 @@
 import React from 'react';
 import RoosterReact from '../../components/RoosterEditor';
 import InputComponent from '../../components/RoosterEditor/shared/utils/InputComponent';
-import { isHTMLElement } from 'roosterjs-editor-dom';
 import isEmpty from 'lodash/isEmpty';
 
 import 'katex/dist/katex.min.css';
@@ -58,6 +57,7 @@ export const Rooster = () => {
       handleClickInside={(inputRef) => {
         const editor = inputRef.current.getEditor();
         if (editor) {
+          console.log('handleClickInside', editor.hasFocus());
           editor.focus();
         }
       }}

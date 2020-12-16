@@ -45,8 +45,14 @@ const buttons = {
   bold: {
     title: ButtonTitleEnum.BOLD,
     image: RibbonIcons.IcnFormatBold,
-    onClick: toggleBold,
-    checked: format => format.isBold,
+    onClick: (editor) => {
+      toggleBold(editor);
+      console.log('bold', editor);
+    },
+    checked: format => {
+      console.log(format);
+      return format.isBold;
+    },
   },
   italic: {
     title: ButtonTitleEnum.ITALIC,

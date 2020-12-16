@@ -119,7 +119,6 @@ class RoosterEditor extends React.Component {
               initState={this.initialState}
               placeholder={'placeholder'}
               disabled={disabled}
-              // undo={plugins.snapshot}
               {...rest}
             />
           </div>
