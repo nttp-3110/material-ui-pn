@@ -91,12 +91,13 @@ function MultiValue(props) {
   const valueContainerElement = document.getElementById('value-container');
   const valueContainerWidth = valueContainerElement.offsetWidth;
   const parentContainerWidth = valueContainerElement.offsetParent.offsetWidth;
-  const childrenChipWith = 24 + 6.73 * props.children.length;
+  console.log('parentContainerWidth', parentContainerWidth);
+  const childrenChipWith = 24 + 6.73 * props.data.label.length;
   const sum = childrenChipWith + valueContainerWidth;
-  console.log('sum', sum);
-  if (childrenChipWith + valueContainerWidth >= parentContainerWidth) {
-    return <div>...</div>;
-  }
+  console.log('valueContainerWidth', valueContainerWidth);
+  // if (sum >= parentContainerWidth) {
+  //   return <div>...</div>;
+  // }
   return (
     <Box ml={props.index === 0 ? 0 : 0.5} maxWidth='100%'>
       <Chip
