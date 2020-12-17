@@ -87,14 +87,14 @@ function ValueContainer(props) {
 }
 
 function MultiValue(props) {
-  console.log('props', props);
-  const valueContainerElement = document.getElementById('value-container');
-  const valueContainerWidth = valueContainerElement.offsetWidth;
-  const parentContainerWidth = valueContainerElement.offsetParent.offsetWidth;
-  console.log('parentContainerWidth', parentContainerWidth);
-  const childrenChipWith = 24 + 6.73 * props.data.label.length;
-  const sum = childrenChipWith + valueContainerWidth;
-  console.log('valueContainerWidth', valueContainerWidth);
+  // console.log('props', props);
+  // const valueContainerElement = document.getElementById('value-container');
+  // const valueContainerWidth = valueContainerElement.offsetWidth;
+  // const parentContainerWidth = valueContainerElement.offsetParent.offsetWidth;
+  // console.log('parentContainerWidth', parentContainerWidth);
+  // const childrenChipWith = 24 + 6.73 * props.data.label.length;
+  // const sum = childrenChipWith + valueContainerWidth;
+  // console.log('valueContainerWidth', valueContainerWidth);
   // if (sum >= parentContainerWidth) {
   //   return <div>...</div>;
   // }
