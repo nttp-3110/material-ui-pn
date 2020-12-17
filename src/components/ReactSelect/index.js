@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import clsx from 'clsx';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+// import PerfectScrollbar from 'react-perfect-scrollbar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
@@ -90,6 +90,14 @@ function MultiValue(props) {
   // console.log('props', props);
   // const valueContainerElement = document.getElementById('value-container');
   // const valueContainerWidth = valueContainerElement.offsetWidth;
+  // const parentContainerWidth = valueContainerElement.offsetParent.offsetWidth;
+  // console.log('parentContainerWidth', parentContainerWidth);
+  // const childrenChipWith = 24 + 6.73 * props.data.label.length;
+  // const sum = childrenChipWith + valueContainerWidth;
+  // console.log('valueContainerWidth', valueContainerWidth);
+  // if (sum >= parentContainerWidth) {
+  //   return <div>...</div>;
+  // }
   return (
     <Box ml={props.index === 0 ? 0 : 0.5} maxWidth='100%'>
       <Chip
