@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     '& .css-1pahdxg-control': {
       border: '1px solid #1A7AE6',
       boxShadow: 'none',
+      borderRadius: theme.spacing(1),
       height: theme.spacing(5.5),
     },
     '& .css-1okebmr-indicatorSeparator': {
@@ -48,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     maxWidth: theme.spacing(63.25),
-    marginTop: theme.spacing(0.75)
+    marginTop: theme.spacing(0.75),
+    boxShadow: 'none',
   },
   menuList: {
     marginTop: theme.spacing(1),

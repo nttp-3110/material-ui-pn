@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(0.75),
     borderRadius: theme.spacing(1),
+    boxShadow: '0px 8px 32px rgba(33, 37, 41, 0.16)',
     '& .MuiAutocomplete-listbox': {
       // overflow: 'visible',
       '& .MuiAutocomplete-option': {
