@@ -36,7 +36,6 @@ const TextInput = React.forwardRef(({
   }, []);
 
   useEffect(() => {
-    console.log(defaultValue, 'chenge ');
     setValue(defaultValue);
   }, [defaultValue]);
 

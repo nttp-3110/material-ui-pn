@@ -20,11 +20,9 @@ import styles from './styles';
 export const UrlPlaceholder = '$url$';
 
 // let editorInstance = null;
-let editorInstanceToggleablePlugins = null;
+let editorInstanceTogglePlugins = null;
 
 class Editor extends React.Component {
-  // private contentDiv: HTMLDivElement;
-  // private editor: RoosterJsEditor;
 
   constructor(props) {
     super(props);
@@ -42,15 +40,15 @@ class Editor extends React.Component {
 
   componentDidMount() {
     this.initEditor();
-    // if (editorInstance === null) {
-    //     editorInstance = this.editor;
-    // }
+    if (editorInstanceTogglePlugins === null) {
+      editorInstanceTogglePlugins = this.editor;
+    }
   }
 
   componentWillUnmount() {
-    // if (editorInstance === this.editor) {
-    //     editorInstance = null;
-    // }
+    if (editorInstanceTogglePlugins === this.editor) {
+      editorInstanceTogglePlugins = null;
+    }
     this.disposeEditor();
   }
 
@@ -66,7 +64,7 @@ class Editor extends React.Component {
     const { disabled } = this.props;
     const { pluginList } = this.state;
 
-    editorInstanceToggleablePlugins = {
+    editorInstanceTogglePlugins = {
       hyperlink: pluginList.hyperlink ? new HyperLink(this.getLinkCallback()) : null,
       paste: pluginList.paste ? new Paste() : null,
       contentEdit: pluginList.contentEdit
@@ -87,8 +85,8 @@ class Editor extends React.Component {
       entityPlugin: pluginList.entityPlugin ? new EntityPlugin() : null,
     };
     let plugins = [
-      ...Object.keys(editorInstanceToggleablePlugins).map(
-        k => (editorInstanceToggleablePlugins)[k]
+      ...Object.keys(editorInstanceTogglePlugins).map(
+        k => (editorInstanceTogglePlugins)[k]
       ),
       ...this.props.plugins,
     ];

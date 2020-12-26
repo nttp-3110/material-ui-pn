@@ -41,7 +41,7 @@ const InputComponent = React.forwardRef(({ Component, label, onSave, onAbort, on
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { clickedOutside, setClickedOutside, addEventListener, removeEventListener } = useOnClickOutside(inputContainerRef, true, disabled || !autoSave, handleSave);
+  const { clickedOutside, setClickedOutside, addEventListener, removeEventListener } = useOnClickOutside(inputContainerRef, true, disabled, handleSave);
 
   useWhyDidYouUpdate('InputComponent', { Component, label, onSave, onAbort, onChange, handleClickInside, disabled, autoSave, defaultValue, rest });
 

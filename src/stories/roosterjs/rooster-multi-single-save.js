@@ -1,6 +1,7 @@
 import React from 'react';
 import RoosterReact from '../../components/RoosterEditor';
 import InputComponent from '../../components/InputComponent';
+import EditorAutoSave from '../../components/RoosterEditor/EditorAutoSave';
 import isEmpty from 'lodash/isEmpty';
 
 import 'katex/dist/katex.min.css';
@@ -18,18 +19,10 @@ export const Rooster = () => {
     }
   };
   return <div style={{ position: 'relative', top: 0, bottom: 0 }}>
-    <InputComponent
+    <EditorAutoSave
       required
-      autoSave
       label={'Editor Single Save 1'}
-      Component={RoosterReact}
       onChange={onChange}
-      handleClickInside={(inputRef) => {
-        const editor = inputRef.current.getEditor();
-        if (editor) {
-          editor.focus();
-        }
-      }}
       onSave={(event, inputRef, setError) => {
         const content = inputRef.current.getContent();
         const editor = inputRef.current.getEditor();
