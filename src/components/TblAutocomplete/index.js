@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -24,9 +24,9 @@ import useStyles from './styles';
 //   children: PropTypes.any,
 // };
 
-function PopperComponent(props){
-  const {children, ...rest} = props;
-  return(
+function PopperComponent(props) {
+  const { children, ...rest } = props;
+  return (
     <Popper placement='bottom-start' {...rest}>
       {children}
     </Popper>
@@ -39,7 +39,28 @@ PopperComponent.propTypes = {
 
 function TblAutocomplete(props) {
   const { required, label, placeholder, ...rest } = props;
+  const [currentList, setCurrentList] = useState([]);
   const classes = useStyles();
+  const inputRef = useRef();
+
+  const renderInput = params => {
+    params.inputProps.onFocus = () => {
+      if (currentList.length > 0) {
+        inputRef.current.setAttribute('readonly', true);
+      } else {
+        inputRef.current.removeAttribute('readonly');
+      }
+    }
+    return <TextField inputRef={inputRef} {...params} placeholder={placeholder} variant='outlined' />;
+  }
+
+  const onChange = (event, value) => {
+    setCurrentList((previousValue) => {
+      inputRef.current.setAttribute('placeholder', '');
+      inputRef.current.blur();
+      return value;
+    });
+  }
 
   return (
     <div className={classes.root}>
@@ -51,10 +72,11 @@ function TblAutocomplete(props) {
       <Autocomplete
         classes={classes}
         popupIcon={<ExpandMoreIcon />}
-        renderInput={(params) => {console.log('params',params); return <TextField {...params} placeholder={placeholder} variant='outlined' />;}}
+        renderInput={renderInput}
         // ListboxComponent={ListboxComponent}
         debug={true}
         PopperComponent={PopperComponent}
+        onChange={onChange}
         {...rest}
       />
     </div>
