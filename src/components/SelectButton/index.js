@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -31,5 +32,10 @@ function SelectButton(props) {
     </div>
   );
 }
+
+SelectButton.propTypes ={
+  children: PropTypes.any,
+  classNameList: PropTypes.string
+};
 
 export default React.memo(SelectButton);

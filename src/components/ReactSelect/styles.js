@@ -40,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
   valueContainer: {
     marginLeft: theme.spacing(1),
-    display: 'flex',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     maxWidth: 'calc(100% - 84px)',
     overflow: 'hidden',
     '& .css-1uccc91-singleValue': {

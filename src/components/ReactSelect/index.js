@@ -2,6 +2,8 @@ import React from 'react';
 import Select from 'react-select';
 import clsx from 'clsx';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
+import PropTypes from 'prop-types';
+
 import MenuItem from '@material-ui/core/MenuItem';
 import Chip from '@material-ui/core/Chip';
 import Paper from '@material-ui/core/Paper';
@@ -24,11 +26,20 @@ function DropdownIndicator(props) {
   );
 }
 
+DropdownIndicator.propTypes = {
+  selectProps: PropTypes.object,
+  menuIsOpen: PropTypes.bool
+};
+
 function ClearIndicator(props) {
   return (
     <ClearIcon className={props.selectProps.classes.clearIcon} onClick={props.clearValue} />
   );
 }
+
+ClearIndicator.propTypes = {
+  selectProps: PropTypes.object
+};
 
 // function MenuList(props) {
 //   return (
@@ -48,6 +59,12 @@ function Menu(props) {
     </Paper>
   );
 }
+
+Menu.propTypes = {
+  selectProps: PropTypes.object,
+  innerProps: PropTypes.object,
+  children: PropTypes.any
+};
 
 function Option(props) {
   const { isSelected, isMulti } = props;
@@ -78,6 +95,14 @@ function Option(props) {
   );
 }
 
+Option.propTypes = {
+  selectProps: PropTypes.object,
+  innerProps: PropTypes.object,
+  children: PropTypes.any,
+  isSelected: PropTypes.bool,
+  isMulti: PropTypes.bool
+};
+
 function ValueContainer(props) {
   return (
     <div className={props.selectProps.classes.valueContainer} id='value-container'>
@@ -86,20 +111,14 @@ function ValueContainer(props) {
   );
 }
 
+ValueContainer.propTypes = {
+  selectProps: PropTypes.object,
+  children: PropTypes.any
+};
+
 function MultiValue(props) {
-  // console.log('props', props);
-  // const valueContainerElement = document.getElementById('value-container');
-  // const valueContainerWidth = valueContainerElement.offsetWidth;
-  // const parentContainerWidth = valueContainerElement.offsetParent.offsetWidth;
-  // console.log('parentContainerWidth', parentContainerWidth);
-  // const childrenChipWith = 24 + 6.73 * props.data.label.length;
-  // const sum = childrenChipWith + valueContainerWidth;
-  // console.log('valueContainerWidth', valueContainerWidth);
-  // if (sum >= parentContainerWidth) {
-  //   return <div>...</div>;
-  // }
   return (
-    <Box ml={props.index === 0 ? 0 : 0.5} maxWidth='100%'>
+    <Box ml={props.index === 0 ? 0 : 0.5} maxWidth='100%' display='inline-flex'>
       <Chip
         tabIndex={-1}
         label={props.children}
@@ -110,6 +129,13 @@ function MultiValue(props) {
     </Box>
   );
 }
+
+MultiValue.propTypes = {
+  index: PropTypes.number,
+  selectProps: PropTypes.object,
+  children: PropTypes.any,
+  isFocused: PropTypes.bool
+};
 
 const components = {
   // MenuList,
@@ -140,5 +166,10 @@ function ReactSelect(props) {
     </div>
   );
 }
+
+ReactSelect.propTypes = {
+  required: PropTypes.bool,
+  label: PropTypes.string
+};
 
 export default React.memo(ReactSelect);

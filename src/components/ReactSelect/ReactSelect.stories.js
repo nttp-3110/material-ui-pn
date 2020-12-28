@@ -8,8 +8,17 @@ export default {
   component: ReactSelect,
 };
 
+// function generateData() {
+//   let data = [];
+//   for (let i = 0; i < 200; i++) {
+//     data.push({value: `chocolate ${i}`, label: `Chocolate ${i}`});
+//   }
+//   return data;
+// }
+
+// const options = generateData();
 const options = [
-  { value: 'longText', label: 'This’s a long text with 70 characters per row, Loremoe. It’s full now. And then it will auto add another rows to show full option details. 3rd row with full text Lorem Ipsum Lorem Ipsum Lorem Ipsum Lo... 4th... :D nah.'},
+  { value: 'longText', label: 'This’s a long text with 70 characters per row, Loremoe. It’s full now. And then it will auto add another rows to show full option details. 3rd row with full text Lorem Ipsum Lorem Ipsum Lorem Ipsum Lo... 4th... :D nah.' },
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
@@ -19,8 +28,7 @@ const options = [
   { value: '12AngryMen', label: '12 Angry Men' },
   { value: 'schindlerList', label: "Schindler's List" },
   { value: 'pulpFiction', label: 'Pulp Fiction' },
-  { value: 'theLordOfTheRing', label: 'The Lord of the Rings: The Return of the King'}
-
+  { value: 'theLordOfTheRing', label: 'The Lord of the Rings: The Return of the King' }
 ];
 
 const ReactSelectTemplate = (args) => (
