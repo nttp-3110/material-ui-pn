@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(1.5, 4, 1.5, 1),
       fontSize: theme.fontSize.normal,
       height: '1.1876em', // because default height of inputText so set height for select
+      '& .menu-content': {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      }
     },
     '& .MuiSelect-outline': {
       borderColor: theme.mainColors.gray[3],
@@ -134,22 +138,62 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 0 4px 0 rgba(0, 0, 0, 0.24)',
     marginTop: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
+    maxWidth: theme.spacing(63.25),
+    minWidth: theme.spacing(46),
+    width: 'auto !important',
+    // maxHeight: '40vh',
     // marginTop: theme.spacing(1.5)
-    '&.scrollbar': {
-      '&::-webkit-scrollbar-thumb': {
-        color: 'red',
-        borderRadius: theme.spacing(1)
-      }
-    },
+    // '&::-webkit-scrollbar': {
+    //   // width: theme.spacing(2),
+    //   width: theme.spacing(0.75),
+    //   '&:hover': {
+    //     width: theme.spacing(1.875)
+    //   }
+    // },
+    // '&::-webkit-scrollbar-track': {
+    //   // marginRight: theme.spacing(1),
+    //   backgroundColor: '#eee',
+    //   '&:hover': {
+    //     // width: theme.spacing(1.875)
+    //   }
+    // },
+    // '&::-webkit-scrollbar-track-piece': {
+    //   '&:hover': {
+    //     width: theme.spacing(1.875)
+    //   }
+    // },
+    // '&::-webkit-scrollbar-thumb': {
+    //   backgroundColor: '#CED4DA',
+    //   borderRadius: theme.spacing(1),
+    //   '&:hover': {
+    //     width: theme.spacing(1.875),
+    //     backgroundColor: '#999'
+    //   }
+    // },
   },
   menu: {
     padding: theme.spacing(0.5, 0),
+    overflowY: 'auto',
+    listStyle: 'none',
+    height: '100%',
     '& .MuiMenuItem-root': {
-      display: 'block',
-      textOverflow: 'ellipsis',
-      paddingRight: theme.spacing(3.5),
-      paddingLeft: theme.spacing(1),
-      color: theme.mainColors.primary1[0]
+      // display: 'block',
+      // textOverflow: 'ellipsis',
+      // paddingRight: theme.spacing(3.5),
+      // paddingLeft: theme.spacing(1),
+      width: '100%',
+      whiteSpace: 'pre-line',
+      wordBreak: 'break-word',
+      color: theme.mainColors.primary1[0],
+      padding: theme.spacing(1.25, 2, 1.25, 1),
+      fontSize: '16px',
+      display: '-webkit-box',
+      '-webkit-line-clamp': 4,
+      '-webkit-box-orient': 'vertical',
+      '& .menu-content': {
+        width: `calc(100% - ${theme.spacing(5)}px)`,
+        fontSize: '16px',
+      }
     },
     '& .MuiListItem-button:hover': {
       backgroundColor: theme.mainColors.gray[3]
@@ -158,15 +202,19 @@ const useStyles = makeStyles((theme) => ({
       position: 'relative',
       color: theme.palette.secondary.main,
       backgroundColor: 'inherit',
-      '&::after': {
-        fontFamily: 'icomoon',
-        position: 'absolute',
-        right: theme.spacing(1),
-        bottom: theme.spacing(0.5),
-        color: theme.palette.secondary.main,
-        content: '"\\e929"',
-        fontSize: theme.fontSizeIcon.normal
-      },
+      display: 'flex',
+      justifyContent: 'space-between',
+      '& .selected-tick': {
+        marginLeft: theme.spacing(2),
+        height: '24px',
+        lineHeight: '24px',
+        '&::before': {
+          fontFamily: 'icomoon',
+          color: theme.palette.secondary.main,
+          content: '"\\e929"',
+          fontSize: theme.fontSizeIcon.medium
+        },
+      }
     },
     '&.max-width-480': {
       maxWidth: '480px'
