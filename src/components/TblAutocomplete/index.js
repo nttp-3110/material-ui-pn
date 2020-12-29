@@ -45,7 +45,7 @@ function TblAutocomplete(props) {
 
   const renderInput = params => {
     params.inputProps.onFocus = () => {
-      if (currentList.length > 0) {
+      if (!params.isSearchable || currentList.length > 0) {
         inputRef.current.setAttribute('readonly', true);
       } else {
         inputRef.current.removeAttribute('readonly');
