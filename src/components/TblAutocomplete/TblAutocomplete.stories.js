@@ -136,10 +136,14 @@ const AutocompleteTemplate = (args) => (
   </ThemeContainer>
 );
 
-export const SingleSelect = AutocompleteTemplate.bind({});
+const SingleSelect = AutocompleteTemplate.bind({});
+
+const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
 
 SingleSelect.args = {
   label: 'No Default Option',
   placeholder: 'Please Select...',
   open: true
 };
+
+export { SingleSelect, MultipleSelect };

@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
       '&[class*="MuiOutlinedInput-root"]': {
         padding: theme.spacing(1.25, 2.25, 1.25, 1),
         borderRadius: theme.spacing(1),
-        height: theme.spacing(5.5),
+        // height: theme.spacing(5.5),
       },
       '&:hover .MuiOutlinedInput-notchedOutline': {
         borderColor: theme.openColors.gray[2]
