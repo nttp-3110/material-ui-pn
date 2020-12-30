@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -8,21 +8,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Popper from '@material-ui/core/Popper';
 
 import useStyles from './styles';
-
-// function ListboxComponent(props) {
-//   const {children, ...rest} = props;
-//   return (
-//     <PerfectScrollbar>
-//       <ul {...rest}>
-//         {children}
-//       </ul>
-//     </PerfectScrollbar>
-//   );
-// };
-
-// ListboxComponent.propTypes = {
-//   children: PropTypes.any,
-// };
 
 function PopperComponent(props) {
   const { children, ...rest } = props;
@@ -37,50 +22,69 @@ PopperComponent.propTypes = {
   children: PropTypes.any,
 };
 
-function TblAutocomplete(props) {
-  const { required, label, placeholder, ...rest } = props;
-  const [currentList, setCurrentList] = useState([]);
+const tagItems = 'tag-items';
+
+function TblAutocomplete({ required, isSearchable, multiple, label, placeholder, ...rest }) {
   const classes = useStyles();
   const inputRef = useRef();
 
   const renderInput = params => {
-    params.inputProps.onFocus = () => {
-      if (currentList.length > 0) {
+    params.inputProps.onFocus = params.inputProps.onBlur = () => {
+      const tags = +inputRef.current.getAttribute(tagItems);
+      if (!isSearchable || tags > 0) {
         inputRef.current.setAttribute('readonly', true);
       } else {
         inputRef.current.removeAttribute('readonly');
       }
-    }
+    };
     return <TextField inputRef={inputRef} {...params} placeholder={placeholder} variant='outlined' />;
   }
 
-  const onChange = (event, value) => {
-    setCurrentList((previousValue) => {
+  const onChange = (event, tags, action /* select-option, remove-option, clear */, value) => {
+    const currentTags = tags?.length || 0;
+
+    inputRef.current.setAttribute(tagItems, currentTags);
+
+    if (currentTags === 0) {
+      inputRef.current.removeAttribute('readonly');
+      inputRef.current.setAttribute('placeholder', placeholder);
+      inputRef.current.focus();
+    } else {
       inputRef.current.setAttribute('placeholder', '');
       inputRef.current.blur();
-      return value;
-    });
+    }
+  }
+
+  const getLimitTagsText = e => {
+    console.log(e, ' ===> event getLimitTagsText ');
   }
 
   return (
     <div className={classes.root}>
       <InputLabel required={required} className={classes.inputLabel}>
-        <span>
-          {label}
-        </span>
+        <span>{label}</span>
       </InputLabel>
       <Autocomplete
         classes={classes}
         popupIcon={<ExpandMoreIcon />}
         renderInput={renderInput}
-        // ListboxComponent={ListboxComponent}
         debug={true}
         PopperComponent={PopperComponent}
         onChange={onChange}
+        multiple={multiple}
+        getLimitTagsText={getLimitTagsText}
         {...rest}
       />
     </div>
   );
+}
+
+TblAutocomplete.defaultProps = {
+  required: false,
+  isSearchable: true,
+  multiple: false,
+  label: '',
+  placeholder: ''
 }
 
 TblAutocomplete.propTypes = {

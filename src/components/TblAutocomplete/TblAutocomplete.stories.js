@@ -124,26 +124,31 @@ const top100Films = [
   { title: 'Monty Python and the Holy Grail', year: 1975 },
 ];
 
-const AutocompleteTemplate = (args) => (
+const AutocompleteTemplate = ({ multiple, ...rest }) => (
   <ThemeContainer>
     <TblAutocomplete
       options={top100Films}
-      getOptionLabel={(option) => option.title}
-      renderOption={(option, { selected }) => (<Option option={option.title} selected={selected} />)}
+      getOptionLabel={option => option.title}
+      renderOption={(option, { selected }) => <Option multiple={multiple} option={option.title} selected={selected} />}
       disableClearable={false}
-      {...args}
+      multiple={multiple}
+      {...rest}
     />
   </ThemeContainer>
 );
 
-const SingleSelect = AutocompleteTemplate.bind({});
-
-const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
+const SingleSelect = props => <AutocompleteTemplate {...props} />;
 
 SingleSelect.args = {
   label: 'No Default Option',
-  placeholder: 'Please Select...',
-  open: true
+  placeholder: 'Please Select...'
+};
+
+const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
+
+MultipleSelect.args = {
+  label: 'No Default Option',
+  placeholder: 'Please Select...'
 };
 
 export { SingleSelect, MultipleSelect };
