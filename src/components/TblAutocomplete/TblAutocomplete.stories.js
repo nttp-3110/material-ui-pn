@@ -151,4 +151,13 @@ MultipleSelect.args = {
   placeholder: 'Please Select...'
 };
 
-export { SingleSelect, MultipleSelect };
+const SingleSelectWithoutSearch = AutocompleteTemplate.bind({});
+
+SingleSelectWithoutSearch.args = {
+  label: 'Have Default Option',
+  // open: true,
+  disableClearable: true,
+  isSearchable: false
+};
+
+export { SingleSelect, MultipleSelect, SingleSelectWithoutSearch };
