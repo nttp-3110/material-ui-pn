@@ -1,7 +1,6 @@
 import React from 'react';
 
 import TblAutocomplete from '.';
-import Option from './Option';
 import ThemeContainer from '../../themes/ThemeContainer';
 
 export default {
@@ -124,14 +123,13 @@ const top100Films = [
   { title: 'Monty Python and the Holy Grail', year: 1975 },
 ];
 
-const AutocompleteTemplate = (args) => (
+const AutocompleteTemplate = ({ ...rest }) => (
   <ThemeContainer>
     <TblAutocomplete
       options={top100Films}
-      getOptionLabel={(option) => option.title}
-      renderOption={(option, { selected }) => (<Option option={option.title} selected={selected} />)}
-      disableClearable={false}
-      {...args}
+      getOptionLabel={option => option.title}
+      // disableClearable={false}
+      {...rest}
     />
   </ThemeContainer>
 );
