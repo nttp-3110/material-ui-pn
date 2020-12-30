@@ -4,6 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Chip from '@material-ui/core/Chip';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
 import Popper from '@material-ui/core/Popper';
 
@@ -28,6 +29,14 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
   const classes = useStyles();
   const inputRef = useRef();
 
+  // const renderTags = (tags, getTagProps) => {
+  //   return (
+  //     <div>
+  //       {tags.map((option, index) => <Chip label={option.title} {...getTagProps({ index })} />)}
+  //     </div>
+  //   );
+  // };
+
   const renderInput = params => {
     params.inputProps.onFocus = params.inputProps.onBlur = () => {
       const tags = +inputRef.current.getAttribute(tagItems);
@@ -38,7 +47,7 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
       }
     };
     return <TextField inputRef={inputRef} {...params} placeholder={placeholder} variant='outlined' />;
-  }
+  };
 
   const onChange = (event, tags, action /* select-option, remove-option, clear */, value) => {
     const currentTags = tags?.length || 0;
@@ -53,11 +62,11 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
       inputRef.current.setAttribute('placeholder', '');
       inputRef.current.blur();
     }
-  }
+  };
 
   const getLimitTagsText = e => {
     console.log(e, ' ===> event getLimitTagsText ');
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -68,6 +77,7 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
         classes={classes}
         popupIcon={<ExpandMoreIcon />}
         renderInput={renderInput}
+        // renderTags={renderTags}
         debug={true}
         PopperComponent={PopperComponent}
         onChange={onChange}
@@ -85,7 +95,7 @@ TblAutocomplete.defaultProps = {
   multiple: false,
   label: '',
   placeholder: ''
-}
+};
 
 TblAutocomplete.propTypes = {
   required: PropTypes.bool,
@@ -95,6 +105,7 @@ TblAutocomplete.propTypes = {
   errorMessage: PropTypes.any,
   helperLabel: PropTypes.any,
   label: PropTypes.any,
+  isSearchable: PropTypes.bool
 };
 
 export default TblAutocomplete;

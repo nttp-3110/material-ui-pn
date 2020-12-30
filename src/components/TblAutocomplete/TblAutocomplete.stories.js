@@ -148,15 +148,14 @@ const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
 
 MultipleSelect.args = {
   label: 'No Default Option',
-  placeholder: 'Please Select...'
+  placeholder: 'Please Select...',
+  isSearchable: false
 };
 
-const SingleSelectWithoutSearch = AutocompleteTemplate.bind({});
+const SingleSelectWithoutSearch = props => <AutocompleteTemplate {...props} />;
 
 SingleSelectWithoutSearch.args = {
   label: 'Have Default Option',
-  // open: true,
-  disableClearable: true,
   isSearchable: false
 };
 
