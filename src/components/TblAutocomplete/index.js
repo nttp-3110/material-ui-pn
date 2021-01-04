@@ -70,7 +70,7 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
     } else {
 
     }
-  }
+  };
 
   const onClose = (evt, action) => {
     console.log('onClose ==> ', evt, action);
@@ -110,7 +110,7 @@ TblAutocomplete.defaultProps = {
   multiple: false,
   label: '',
   placeholder: ''
-}
+};
 
 TblAutocomplete.propTypes = {
   required: PropTypes.bool,
@@ -120,6 +120,7 @@ TblAutocomplete.propTypes = {
   errorMessage: PropTypes.any,
   helperLabel: PropTypes.any,
   label: PropTypes.any,
+  isSearchable: PropTypes.bool
 };
 
 export default TblAutocomplete;
