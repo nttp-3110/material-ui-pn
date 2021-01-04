@@ -2,17 +2,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    '& .MuiInputBase-root': {
+      '& input.MuiInputBase-input': {
+        height: theme.spacing(4),
+        '&[readonly]': {
+          cursor: 'pointer'
+        }
+      }
+    },
     '& .MuiAutocomplete-inputRoot': {
       '&[class*="MuiOutlinedInput-root"]': {
-        padding: theme.spacing(1.25, 2.25, 1.25, 1),
-        borderRadius: theme.spacing(1),
-        // height: theme.spacing(5.5),
+        padding: '3px',
+        borderRadius: theme.spacing(1)
       },
       '&:hover .MuiOutlinedInput-notchedOutline': {
         borderColor: theme.openColors.gray[2]
       },
       '&[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input': {
-        padding: theme.spacing(0),
+        padding: '0 5px',
         fontSize: theme.fontSize.normal,
         color: theme.mainColors.primary1[0],
       },
@@ -78,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.fontSizeIcon.medium,
   },
   popper: {
-    maxWidth: theme.spacing(63.25),
-    minWidth: theme.spacing(46),
-    width: 'auto !important',
+    // maxWidth: theme.spacing(63.25),
+    // minWidth: theme.spacing(46),
+    // width: 'auto !important',
   },
   paper: {
     marginTop: theme.spacing(0.75),
@@ -99,24 +106,21 @@ const useStyles = makeStyles((theme) => ({
       }
     }
   },
-  optionContent: {
-    width: `calc(100% - ${theme.spacing(5)}px)`,
-    fontSize: '16px',
-  },
-  selectedTick: {
-    marginLeft: theme.spacing(2),
-    height: theme.spacing(3),
-    lineHeight: '24px',
-    '&:before': {
-      fontFamily: 'icomoon',
-      color: theme.palette.secondary.main,
-      content: '"\\e929"',
-      fontSize: theme.fontSizeIcon.medium
-    }
-  },
   tag: {
     borderRadius: theme.spacing(0.5),
-    backgroundColor: theme.openColors.gray[2]
+    backgroundColor: theme.openColors.gray[2],
+    '& .MuiChip-deleteIcon': {
+      display: 'none'
+    }
+  },
+  wrapTags: {
+    maxWidth: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    '&.search-box': {
+      maxWidth: 'calc(100% - 120px)'
+    }
   }
 }));
 

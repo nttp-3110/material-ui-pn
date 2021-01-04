@@ -1,36 +1,32 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'classnames';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import PerfectScrollbar from 'react-perfect-scrollbar';
 import Popper from '@material-ui/core/Popper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Option from './Option';
+import Tag from './Tag';
 import useStyles from './styles';
-
-// function ListboxComponent(props) {
-//   const {children, ...rest} = props;
-//   return (
-//     <PerfectScrollbar>
-//       <ul {...rest}>
-//         {children}
-//       </ul>
-//     </PerfectScrollbar>
-//   );
-// };
-
-// ListboxComponent.propTypes = {
-//   children: PropTypes.any,
-// };
 
 function PopperComponent(props) {
   const { children, ...rest } = props;
+
+  // const [isOpen, setIsOpen] = useState(true);
+
+  const onClickAway = evt => {
+    // setIsOpen(false);
+  }
+
   return (
-    <div placement='bottom-start' {...rest}>
-      {children}
-    </div>
+    <ClickAwayListener onClickAway={onClickAway}>
+      <Popper placement='bottom-start' {...rest}>
+        {children}
+      </Popper>
+    </ClickAwayListener>
   );
 }
 
@@ -42,8 +38,14 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
   const classes = useStyles();
   const inputRef = useRef();
 
-  const isSingle = !multiple;
+  const isSingle = !!!multiple;
   const isMultiple = !!multiple;
+
+  const renderTags = tags => (
+    <div className={clsx(classes.wrapTags, multiple && 'search-box')}>
+      {tags.map((e, ind) => <Tag key={ind} title={e.title} />)}
+    </div>
+  );
 
   const renderOption = (option, { selected }) => <Option multiple={isMultiple} option={option.title} selected={selected} />;
 
@@ -54,80 +56,60 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
       } else {
         inputRef.current.removeAttribute('readonly');
       }
-<<<<<<< Updated upstream
-    }
-    return <TextField inputRef={inputRef} {...params} placeholder={placeholder} variant='outlined' />;
-  }
-
-  const onChange = (event, value) => {
-    setCurrentList((previousValue) => {
-      inputRef.current.setAttribute('placeholder', '');
-      inputRef.current.blur();
-      return value;
-    });
-=======
     };
     return <TextField {...props} inputRef={inputRef} placeholder={placeholder} variant='outlined' />;
   }
 
   const onChange = (event, tags, action /* select-option, remove-option, clear */, value) => {
-    console.log(tags, action /* select-option, remove-option, clear */, value);
     if (isSingle) {
       if (tags) {
         inputRef.current.setAttribute('readonly', true);
       } else {
         inputRef.current.removeAttribute('readonly');
       }
+    } else {
+
     }
-    // const currentTags = tags?.length || 0;
-
-    // inputRef.current.setAttribute(tagItems, currentTags);
-
-    // if (currentTags === 0) {
-    //   inputRef.current.removeAttribute('readonly');
-    //   inputRef.current.setAttribute('placeholder', placeholder);
-    //   inputRef.current.focus();
-    // } else {
-    //   inputRef.current.setAttribute('placeholder', '');
-    //   inputRef.current.blur();
-    // }
   }
 
-  const onClose = (a, b, c, d) => {
-    // console.log(a, b, c, d);
->>>>>>> Stashed changes
+  const onClose = (evt, action) => {
+    console.log('onClose ==> ', evt, action);
+  }
+
+  const onOpen = evt => {
+    console.log('onOpen ==> ', evt);
   }
 
   return (
     <div className={classes.root}>
       <InputLabel required={required} className={classes.inputLabel}>
-        <span>
-          {label}
-        </span>
+        <span>{label}</span>
       </InputLabel>
       <Autocomplete
+        debug
         classes={classes}
-        disableCloseOnSelect={isMultiple}
         popupIcon={<ExpandMoreIcon />}
-<<<<<<< Updated upstream
-        renderInput={renderInput}
-        // ListboxComponent={ListboxComponent}
-        debug={true}
-=======
->>>>>>> Stashed changes
         PopperComponent={PopperComponent}
+        renderTags={renderTags}
         renderInput={renderInput}
         renderOption={renderOption}
         onChange={onChange}
-<<<<<<< Updated upstream
-=======
         onClose={onClose}
+        onOpen={onOpen}
+        disableCloseOnSelect={isMultiple}
         multiple={isMultiple}
->>>>>>> Stashed changes
         {...rest}
       />
     </div>
   );
+}
+
+TblAutocomplete.defaultProps = {
+  required: false,
+  isSearchable: true,
+  multiple: false,
+  label: '',
+  placeholder: ''
 }
 
 TblAutocomplete.propTypes = {

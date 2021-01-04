@@ -136,21 +136,19 @@ const AutocompleteTemplate = ({ ...rest }) => (
 
 const SingleSelect = AutocompleteTemplate.bind({});
 
-const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
-
 SingleSelect.args = {
   label: 'No Default Option',
   placeholder: 'Please Select...',
-  open: true
-};
-
-const SingleSelectWithoutSearch = AutocompleteTemplate.bind({});
-
-SingleSelectWithoutSearch.args = {
-  label: 'Have Default Option',
-  // open: true,
-  disableClearable: true,
   isSearchable: false
 };
 
-export { SingleSelect, MultipleSelect, SingleSelectWithoutSearch };
+const MultipleSelect = AutocompleteTemplate.bind({});
+
+MultipleSelect.args = {
+  label: 'No Default Option',
+  placeholder: 'Please Select...',
+  multiple: true,
+  isSearchable: false
+};
+
+export { SingleSelect, MultipleSelect };
