@@ -1,20 +1,32 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'classnames';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-// import PerfectScrollbar from 'react-perfect-scrollbar';
 import Popper from '@material-ui/core/Popper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import Option from './Option';
+import Tag from './Tag';
 import useStyles from './styles';
 
 function PopperComponent(props) {
   const { children, ...rest } = props;
+
+  // const [isOpen, setIsOpen] = useState(true);
+
+  const onClickAway = evt => {
+    // setIsOpen(false);
+  }
+
   return (
-    <Popper placement='bottom-start' {...rest}>
-      {children}
-    </Popper>
+    <ClickAwayListener onClickAway={onClickAway}>
+      <Popper placement='bottom-start' {...rest}>
+        {children}
+      </Popper>
+    </ClickAwayListener>
   );
 }
 
@@ -22,41 +34,50 @@ PopperComponent.propTypes = {
   children: PropTypes.any,
 };
 
-const tagItems = 'tag-items';
-
 function TblAutocomplete({ required, isSearchable, multiple, label, placeholder, ...rest }) {
   const classes = useStyles();
   const inputRef = useRef();
 
-  const renderInput = params => {
-    params.inputProps.onFocus = params.inputProps.onBlur = () => {
-      const tags = +inputRef.current.getAttribute(tagItems);
-      if (!isSearchable || tags > 0) {
+  const isSingle = !!!multiple;
+  const isMultiple = !!multiple;
+
+  const renderTags = tags => (
+    <div className={clsx(classes.wrapTags, multiple && 'search-box')}>
+      {tags.map((e, ind) => <Tag key={ind} title={e.title} />)}
+    </div>
+  );
+
+  const renderOption = (option, { selected }) => <Option multiple={isMultiple} option={option.title} selected={selected} />;
+
+  const renderInput = props => {
+    props.inputProps.onFocus = props.inputProps.onBlur = () => {
+      if (!isSearchable) {
         inputRef.current.setAttribute('readonly', true);
       } else {
         inputRef.current.removeAttribute('readonly');
       }
     };
-    return <TextField inputRef={inputRef} {...params} placeholder={placeholder} variant='outlined' />;
+    return <TextField {...props} inputRef={inputRef} placeholder={placeholder} variant='outlined' />;
   }
 
   const onChange = (event, tags, action /* select-option, remove-option, clear */, value) => {
-    const currentTags = tags?.length || 0;
-
-    inputRef.current.setAttribute(tagItems, currentTags);
-
-    if (currentTags === 0) {
-      inputRef.current.removeAttribute('readonly');
-      inputRef.current.setAttribute('placeholder', placeholder);
-      inputRef.current.focus();
+    if (isSingle) {
+      if (tags) {
+        inputRef.current.setAttribute('readonly', true);
+      } else {
+        inputRef.current.removeAttribute('readonly');
+      }
     } else {
-      inputRef.current.setAttribute('placeholder', '');
-      inputRef.current.blur();
+
     }
   }
 
-  const getLimitTagsText = e => {
-    console.log(e, ' ===> event getLimitTagsText ');
+  const onClose = (evt, action) => {
+    console.log('onClose ==> ', evt, action);
+  }
+
+  const onOpen = evt => {
+    console.log('onOpen ==> ', evt);
   }
 
   return (
@@ -65,14 +86,18 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
         <span>{label}</span>
       </InputLabel>
       <Autocomplete
+        debug
         classes={classes}
         popupIcon={<ExpandMoreIcon />}
-        renderInput={renderInput}
-        debug={true}
         PopperComponent={PopperComponent}
+        renderTags={renderTags}
+        renderInput={renderInput}
+        renderOption={renderOption}
         onChange={onChange}
-        multiple={multiple}
-        getLimitTagsText={getLimitTagsText}
+        onClose={onClose}
+        onOpen={onOpen}
+        disableCloseOnSelect={isMultiple}
+        multiple={isMultiple}
         {...rest}
       />
     </div>

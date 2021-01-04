@@ -85,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.fontSizeIcon.medium,
   },
   popper: {
-    maxWidth: theme.spacing(63.25),
-    minWidth: theme.spacing(46),
-    width: 'auto !important',
+    // maxWidth: theme.spacing(63.25),
+    // minWidth: theme.spacing(46),
+    // width: 'auto !important',
   },
   paper: {
     marginTop: theme.spacing(0.75),
@@ -111,6 +111,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.openColors.gray[2],
     '& .MuiChip-deleteIcon': {
       display: 'none'
+    }
+  },
+  wrapTags: {
+    maxWidth: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    '&.search-box': {
+      maxWidth: 'calc(100% - 120px)'
     }
   }
 }));

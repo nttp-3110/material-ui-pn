@@ -1,7 +1,6 @@
 import React from 'react';
 
 import TblAutocomplete from '.';
-import Option from './Option';
 import ThemeContainer from '../../themes/ThemeContainer';
 
 export default {
@@ -124,40 +123,32 @@ const top100Films = [
   { title: 'Monty Python and the Holy Grail', year: 1975 },
 ];
 
-const AutocompleteTemplate = ({ multiple, ...rest }) => (
+const AutocompleteTemplate = ({ ...rest }) => (
   <ThemeContainer>
     <TblAutocomplete
       options={top100Films}
       getOptionLabel={option => option.title}
-      renderOption={(option, { selected }) => <Option multiple={multiple} option={option.title} selected={selected} />}
-      disableClearable={false}
-      multiple={multiple}
+      // disableClearable={false}
       {...rest}
     />
   </ThemeContainer>
 );
 
-const SingleSelect = props => <AutocompleteTemplate {...props} />;
+const SingleSelect = AutocompleteTemplate.bind({});
 
 SingleSelect.args = {
   label: 'No Default Option',
-  placeholder: 'Please Select...'
-};
-
-const MultipleSelect = props => <AutocompleteTemplate multiple {...props} />;
-
-MultipleSelect.args = {
-  label: 'No Default Option',
-  placeholder: 'Please Select...'
-};
-
-const SingleSelectWithoutSearch = AutocompleteTemplate.bind({});
-
-SingleSelectWithoutSearch.args = {
-  label: 'Have Default Option',
-  // open: true,
-  disableClearable: true,
+  placeholder: 'Please Select...',
   isSearchable: false
 };
 
-export { SingleSelect, MultipleSelect, SingleSelectWithoutSearch };
+const MultipleSelect = AutocompleteTemplate.bind({});
+
+MultipleSelect.args = {
+  label: 'No Default Option',
+  placeholder: 'Please Select...',
+  multiple: true,
+  isSearchable: false
+};
+
+export { SingleSelect, MultipleSelect };

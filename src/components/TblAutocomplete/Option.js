@@ -1,14 +1,23 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'classnames';
 
 import { Checkbox } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles((theme) => ({
   optionItem: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '100%',
+    '&.multiple': {
+      justifyContent: 'unset',
+    },
+    '& > span[class^="PrivateSwitchBase-"], & > span[class*=" PrivateSwitchBase-"]': {
+      padding: '0 8px'
+    }
   },
   optionContent: {
     fontSize: theme.fontSize.normal,
@@ -33,7 +42,7 @@ function Option({ multiple, option, selected }) {
     if (multiple) {
       return (
         <React.Fragment>
-          <Checkbox checked={selected} size='small' />
+          <Checkbox checked={selected} size='small' padding='0 9px' />
           <div className={classes.optionContent}>{option}</div>
         </React.Fragment>
       );
@@ -47,7 +56,7 @@ function Option({ multiple, option, selected }) {
   }, [selected]);
 
   return (
-    <div className={classes.optionItem}>
+    <div className={clsx(classes.optionItem, multiple && 'multiple')}>
       {renderOption}
     </div>
   );
