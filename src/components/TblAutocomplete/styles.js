@@ -5,6 +5,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiInputBase-root': {
       '& input.MuiInputBase-input': {
         height: theme.spacing(4),
+        maxWidth: 'calc(100% - 38px)',
         '&[readonly]': {
           cursor: 'pointer'
         }
@@ -119,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     '&.search-box': {
-      maxWidth: 'calc(100% - 120px)'
+      maxWidth: '100%'
     }
   }
 }));

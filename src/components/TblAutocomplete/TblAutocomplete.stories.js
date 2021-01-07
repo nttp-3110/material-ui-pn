@@ -139,7 +139,8 @@ const SingleSelect = AutocompleteTemplate.bind({});
 SingleSelect.args = {
   label: 'No Default Option',
   placeholder: 'Please Select...',
-  isSearchable: false
+  isSearchable: false,
+  disableClearable: true
 };
 
 const MultipleSelect = AutocompleteTemplate.bind({});
@@ -148,7 +149,15 @@ MultipleSelect.args = {
   label: 'No Default Option',
   placeholder: 'Please Select...',
   multiple: true,
-  isSearchable: false
+  isSearchable: false,
 };
 
-export { SingleSelect, MultipleSelect };
+const SingleSelectWithSearch = AutocompleteTemplate.bind({});
+
+SingleSelectWithSearch.args = {
+  label: 'No Default Option',
+  placeholder: 'Please Select...',
+  isSearchable: true,
+};
+
+export { SingleSelect, MultipleSelect, SingleSelectWithSearch };

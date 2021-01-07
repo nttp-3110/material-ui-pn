@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -19,7 +20,7 @@ function PopperComponent(props) {
 
   const onClickAway = evt => {
     // setIsOpen(false);
-  }
+  };
 
   return (
     <ClickAwayListener onClickAway={onClickAway}>
@@ -58,7 +59,7 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
       }
     };
     return <TextField {...props} inputRef={inputRef} placeholder={placeholder} variant='outlined' />;
-  }
+  };
 
   const onChange = (event, tags, action /* select-option, remove-option, clear */, value) => {
     if (isSingle) {
@@ -67,18 +68,20 @@ function TblAutocomplete({ required, isSearchable, multiple, label, placeholder,
       } else {
         inputRef.current.removeAttribute('readonly');
       }
+    } else if (isMultiple && !isEmpty(tags)) {
+      inputRef.current.style.display = 'none';
     } else {
-
+      inputRef.current.style.display = 'block';
     }
   };
 
   const onClose = (evt, action) => {
     console.log('onClose ==> ', evt, action);
-  }
+  };
 
   const onOpen = evt => {
     console.log('onOpen ==> ', evt);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -120,7 +123,8 @@ TblAutocomplete.propTypes = {
   errorMessage: PropTypes.any,
   helperLabel: PropTypes.any,
   label: PropTypes.any,
-  isSearchable: PropTypes.bool
+  isSearchable: PropTypes.bool,
+  inputProps: PropTypes.object
 };
 
 export default TblAutocomplete;
